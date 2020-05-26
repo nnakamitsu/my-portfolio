@@ -53,6 +53,12 @@ li a:hover {
     background-color: darkcyan;
 }
 
+.boxed {
+  border: 3px #008CBA;
+  border-style:solid;
+  border-radius: 20px ;
+}
+
 h1 {
     
 }
