@@ -4270,8 +4270,8 @@ table span.badge {
 }
 
 nav {
-  color: #fff;
-  background-color: #ee6e73;
+  color: black;
+  background-color: #ffffff;
   width: 100%;
   height: 56px;
   line-height: 56px;
@@ -4292,7 +4292,7 @@ nav.nav-extended .nav-content {
 }
 
 nav a {
-  color: #fff;
+  color: black;
 }
 
 nav i,
@@ -4399,7 +4399,7 @@ nav ul a {
   -webkit-transition: background-color .3s;
   transition: background-color .3s;
   font-size: 1rem;
-  color: #fff;
+  color: black;
   display: block;
   padding: 0 15px;
   cursor: pointer;

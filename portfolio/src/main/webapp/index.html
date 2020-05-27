@@ -13,16 +13,46 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.parallax').parallax();
+        });
+    </script>
   </head>
   <body>
       
     <div class="container">
-      <h1>Nathan Nakamitsu</h1>
-      <ul>
-        <li><a href="#AboutMe">About Me</a></li>
-        <li><a href="#Projects">Projects</a></li>
-        <li><a href="#Contact">Contact</a></li>
-    </ul>
+        <nav>
+            <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#AboutMe">About Me</a></li>
+                <li><a href="#Projects">Projects</a></li>
+                <li><a href="#Contact">Contact</a></li>
+            </ul>
+            </div>
+        </nav>
+
+    <div class="parallax-container center valign-wrapper">
+      <div class="parallax"><img src="images/pink.jpg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 white-text">
+                    <h1> Hello, I'm Nathan </h1>
+                    <p>"It's hard to beat a person who never gives up." -Babe Ruth</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="section white">
+      
+    </div>
+    <div class="parallax-container">
+      <div class="parallax"><img src="images/parallax2.jpg"></div>
+    </div> -->
+    <div class="section white">
       <img src="/images/me.JPG" alt="Nathan" width="210" height="140" class = "circle responsive-img">
       <p>"It's hard to beat a person who never gives up." -Babe Ruth</p>
       <h2 id = "AboutMe">About me</h2>
@@ -33,6 +63,9 @@
           (especially baseball and soccer), compete in fantasy sports, and, 
           of course, watch my favorite teams and athletes compete in the MLB, NFL, and NBA.
       </p>
+
+    </div>
+    <div class="divider"></div>
             
       <h2 id = "Projects">Projects</h2>
       <div class="row">
@@ -61,7 +94,7 @@
                         <p>A version-control system that emulates features of the popular system Git.</p>
                         </div>
                         <div class="card-action">
-                    <a href="#">This is a link</a>
+                    <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj3/index.html">View project specs</a>
                 </div>
             </div>
         </div>
@@ -72,10 +105,10 @@
                     <span class="card-title grey-text text-darken-3">Lines of Action</span>
                 </div>
                         <div class="card-content">
-                        <p>Board game invented by Claude Soucie played on a checkerboard with ordinary checkers pieces.</p>
+                        <p>Board game invented by Claude Soucie played on a checkerboard with ordinary checkers pieces. Developed a minimax algorithm with Alpha-Beta pruning to defeat other AI.</p>
                         </div>
                         <div class="card-action">
-                    <a href="#">This is a link</a>
+                    <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj2/index.html">View project specs</a>
                 </div>
             </div>
         </div>
@@ -91,7 +124,7 @@
                         <p>Scheme Interpreter.</p>
                         </div>
                         <div class="card-action">
-                    <a href="#">This is a link</a>
+                    <a href="#">View project specs</a>
                 </div>
             </div>
         </div>
@@ -105,7 +138,7 @@
                         <p> Enigma description. </p>
                         </div>
                         <div class="card-action">
-                    <a href="#">This is a link</a>
+                    <a href="#">View project specs</a>
                 </div>
             </div>
         </div>
@@ -124,7 +157,8 @@
             </div>
         </div>
       </div>
-     
+    
+
       <h2 id = "Contact">Contact</h2>
       <a href="https://www.linkedin.com/in/nathannakamitsu/">
       <button class="button button_blue hoverable">LinkedIn</button>

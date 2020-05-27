@@ -38,12 +38,12 @@ li {
   display: block;
   float: right;
   padding: 8px;
-  background-color: #008CBA;
+  background-color: #ffffff;
 }
 
 li a {
   display: block;
-  color: white;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -54,7 +54,7 @@ li a:hover {
 }
 
 .boxed {
-  border: 3px #008CBA;
+  border: 3px #ffffff;
   margin: 3px;
   border-style:solid;
   border-radius: 20px;
