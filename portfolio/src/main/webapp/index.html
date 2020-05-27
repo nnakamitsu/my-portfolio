@@ -23,7 +23,7 @@
         <li><a href="#Projects">Projects</a></li>
         <li><a href="#Contact">Contact</a></li>
     </ul>
-      <img src="/images/me.JPG" alt="Nathan" width="210" height="140">
+      <img src="/images/me.JPG" alt="Nathan" width="210" height="140" class = "circle responsive-img">
       <p>"It's hard to beat a person who never gives up." -Babe Ruth</p>
       <h2 id = "AboutMe">About me</h2>
       <p>Hello! My name is Nathan and I'm from Los Altos Hills, CA.  
@@ -33,27 +33,43 @@
           (especially baseball and soccer), compete in fantasy sports, and, 
           of course, watch my favorite teams and athletes compete in the MLB, NFL, and NBA.
       </p>
-      <div class="card-panel teal lighten-2">This is a card panel with a teal lighten-2 class</div>
             
-
       <h2 id = "Projects">Projects</h2>
       <div class="row">
-        <div class="col s3">1000000</div>
-        <div class="col s3" offset-s1>2000000</div>
-        <div class="col s3" offset-s1>3000000</div>
+        <div class="col s4 card-panel light-blue lighten-5" >
+            <h4> Evolve </h4>
+            <img src="images/cal.png" height=500px alt="" class = "responsive-img">
+            <span class="black-text">
+                Using genetic algorithms to develop a universal codebook for image compression.
+            </span>
+        </div>
+        <div class="col s4 card-panel cyan lighten-5" >
+            <h4> Gitlet </h4>
+            <img src="images/gitlet.png" height=500px alt="" class = "responsive-img">
+            <span class="black-text">
+                A version-control system that emulates features of the popular system Git.
+            </span>
+        </div>
+        <div class="col s4 card-panel teal lighten-5" >
+            <h4> Lines of Action </h4>
+            <img src="images/LOA.png" height=500px alt="" class = "responsive-img">
+            <span class="black-text">
+                Board game invented by Claude Soucie played on a checkerboard with ordinary checkers pieces.
+            </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4">
+            <h4> Scheme Interpreter </h4>
+        </div>
+        <div class="col s4">
+            <h4> The Enigma </h4>
+        </div>
+        <div class="col s4">
+            <h4> Detecting Organ Failure </h4>
+        </div>
         
       </div>
-      <div class="boxed leftbox">
-          <h3> Evolve </h3>
-            This text is enclosed in a box.
-      </div>
-      <div class="boxed middlebox">
-          <h3> Gitlet </h3>
-            This text is enclosed in a box.
-      </div>
-        <h3> Lines of Action </h3>
-        <h3> Detecting Organ Failure </h3>
-        <h3> Scheme Interpreter </h3>
      
       <p>Click here to get a random message:</p>
       <button onclick="addRandomGreeting()">Hello</button>
