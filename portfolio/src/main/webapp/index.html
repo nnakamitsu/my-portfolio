@@ -17,218 +17,206 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.parallax').parallax();
-        });
+	  $(document).ready(function() {
+        $('.parallax').parallax();
+      });
     </script>
   </head>
   <body>
       
     <div class="container">
-        <nav>
-            <div class="nav-wrapper">
-            <a href="#" class="brand-logo"> <img src="images/nn2.png" class="brand-logo" height="56px">
-            </a>
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo"> <img src="images/nn2.png" class="brand-logo" height="56px"></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#AboutMe">About Me</a></li>
-                <li><a href="#Projects">Projects</a></li>
-                <li><a href="#Contact">Contact</a></li>
+              <li><a href="#AboutMe">About Me</a></li>
+              <li><a href="#Projects">Projects</a></li>
+              <li><a href="#Contact">Contact</a></li>
             </ul>
-            </div>
-        </nav>
+        </div>
+      </nav>
 
-    <div class="parallax-container center valign-wrapper">
-      <div class="parallax"><img src="images/pink.jpg"></div>
-        <div class="container">
+      <div class="parallax-container center valign-wrapper">
+        <div class="parallax"><img src="images/pink.jpg"></div>
+          <div class="container">
             <div class="row">
-                <div class="col s12 white-text">
-                    <h1> Hello, I'm Nathan </h1>
-                    <!-- 
-                    <h5>"It's hard to beat a person who never gives up." -Babe Ruth</h5> -->
-                    <h5><span id="id_quote"></span><span class="blinking-cursor">|</span></h5>
+              <div class="col s12 white-text">
+                <h1> Hello, I'm Nathan </h1>
+                  <h5><span id="id_quote"></span><span class="blinking-cursor">|</span></h5>
                     <script>
-                        const quotes =
+                      const quotes =
                             ["Favorite Quote: \"It's hard to beat a person who never gives up.\" -Babe Ruth", 
                             "Favorite Movie: Moneyball", 'Favorite Language: Java', 'Favorite Color: Blue', 
                             'Favorite Sports Team: SF 49ers', 'Favorite Athlete: Julio Jones', 'Favorite Brand: Adidas', 
-                            'Favorite Sport: Baseball'];
+                            'Favorite Sport: Baseball', 'Favorite Youtuber: Mark Rober', "I\'m half Japanese, half Filipino'"];
 
-                        // Pick a random quote.
-                        var quote = quotes[Math.floor(Math.random() * quotes.length)];
+                      // Pick a random quote.
+                      var quote = quotes[Math.floor(Math.random() * quotes.length)];
+                      var i = 0;
+                      var speed = 200;
 
-                        var i = 0;
-                        var speed = 200;
-
-                        function typeWriter() {
-                            if (i < quote.length) {
-                            document.getElementById("id_quote").innerHTML += quote.charAt(i);
-                            i++;
-                            setTimeout(typeWriter, speed);
-                            } else {
-                                setTimeout(deleteWriter, speed + 500)
-                    
-                            }
-                        } 
-                        function deleteWriter() {
-                            if (i > 0) {
-                                var temp = document.getElementById("id_quote").innerHTML
-                                document.getElementById("id_quote").innerHTML = temp.slice(0, temp.length-1)
-                                i--
-                                setTimeout(deleteWriter, speed / 4)
-                            } else {
-                                quote = quotes[Math.floor(Math.random() * quotes.length)];
-                                setTimeout(typeWriter, speed + 300)
-                            }
+                      function typeWriter() {
+                        if (i < quote.length) {
+                          document.getElementById("id_quote").innerHTML += quote.charAt(i);
+                          i++;
+                          setTimeout(typeWriter, speed);
+                        } else {
+                          setTimeout(deleteWriter, speed + 500)
                         }
-                        typeWriter();
+                      } 
+                      function deleteWriter() {
+                        if (i > 0) {
+                          var temp = document.getElementById("id_quote").innerHTML
+                          document.getElementById("id_quote").innerHTML = temp.slice(0, temp.length-1)
+                          i--
+                          setTimeout(deleteWriter, speed / 4)
+                        } else {
+                          quote = quotes[Math.floor(Math.random() * quotes.length)];
+                         setTimeout(typeWriter, speed + 300)
+                        }
+                      }
+                      typeWriter();
                     </script>
                 
-                </div>
+              </div>
             </div>
-        </div>
-    </div>
-    <!-- <div class="section white">
-      
-    </div>
-    <div class="parallax-container">
-      <div class="parallax"><img src="images/parallax2.jpg"></div>
-    </div> -->
-    <div class="divider"></div>
-    <div class="col s12">
+          </div>
+      </div>
+      <div class="divider"></div>
+      <div class="col s12">
         <div class="card horizontal">
-        <div class="card-image">
+          <div class="card-image">
             <img src="/images/me.JPG">
-        </div>
-        <div class="card-stacked">
+          </div>
+          <div class="card-stacked">
             <div class="card-content">
-            <h2 id = "AboutMe">About me</h2>
-                <h6>Hello! My name is Nathan and I'm from Los Altos Hills, CA.  
+              <h2 id = "AboutMe">About me</h2>
+              <h6>Hello! My name is Nathan and I'm from Los Altos Hills, CA.  
                     I am a curious freshman at UC Berkeley studying Computer Science and Data Science interested
                     in learning more about software engineering and machine learning.
                     I am also a huge sports fan. I love to play all sports 
                     (especially baseball and soccer), compete in fantasy sports, and, 
                     of course, watch my favorite teams and athletes compete in the MLB, NFL, and NBA.
-                </h6>
-                <h6> <blockquote> Email me at <em><b> nnakamitsu@google.com </b></em>
-                </blockquote>
-                </h6>
+              </h6>
+              <h6> <blockquote> Email me at <em><b> nnakamitsu@google.com </b></em></blockquote></h6>
             </div>
+          </div>
         </div>
-        </div>
-    </div>
-    <div class="divider"></div>
+      </div>
+
+      <div class="divider"></div>
             
       <h2 id = "Projects">Projects</h2>
       <div class="row">
-        <div class="col s4 card-panel red lighten-5 hoverable" >
-            <div class="card large">
-                <div class="card-image">
-                    <img src="images/cal.png">
-                    <span class="card-title">Evolve</span>
-                </div>
-                        <div class="card-content">
-                        <p>Using genetic algorithms to develop a universal codebook for image compression. 
-                            Developed with <a href="https://callaunchpad.org/#/">Launchpad</a> over the Spring 2020 semester. </p>
-                        </div>
-                        <div class="card-action">
-                    <a href="https://github.com/callaunchpad/Evolve">See code</a>
-                </div>
+        <div class="col s4 card-panel red lighten-5 hoverable">
+          <div class="card large">
+            <div class="card-image">
+              <img src="images/cal.png">
+              <span class="card-title">Evolve</span>
             </div>
+            <div class="card-content">
+              <p>Using genetic algorithms to develop a universal codebook for image compression. 
+                 Developed with <a href="https://callaunchpad.org/#/">Launchpad</a> over the Spring 2020 semester.</p>
+            </div>
+            <div class="card-action">
+              <a href="https://github.com/callaunchpad/Evolve">See code</a>
+            </div>
+          </div>
         </div>
-        <div class="col s4 card-panel purple lighten-5 hoverable" >
-            <div class="card large">
-                <div class="card-image">
-                    <img src="images/git.png">
-                    <span class="card-title grey-text text-darken-3">Gitlet</span>
-                </div>
-                        <div class="card-content">
-                        <p>A version-control system that emulates features of the popular system Git.</p>
-                        </div>
-                        <div class="card-action">
-                    <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj3/index.html">View project specs</a>
-                </div>
+        <div class="col s4 card-panel purple lighten-5 hoverable">
+          <div class="card large">
+            <div class="card-image">
+              <img src="images/git.png">
+              <span class="card-title grey-text text-darken-3">Gitlet</span>
             </div>
+            <div class="card-content">
+              <p>A version-control system that emulates features of the popular system Git.</p>
+            </div>
+            <div class="card-action">
+              <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj3/index.html">View project specs</a>
+            </div>
+          </div>
         </div>
-        <div class="col s4 card-panel indigo lighten-5 hoverable" >
-            <div class="card large">
-                <div class="card-image">
-                    <img src="images/LOA.png">
-                    <span class="card-title grey-text text-darken-3">Lines of Action</span>
-                </div>
-                        <div class="card-content">
-                        <p>Board game invented by Claude Soucie played on a checkerboard with ordinary checkers pieces. Developed a minimax algorithm with Alpha-Beta pruning to defeat other AI.</p>
-                        </div>
-                        <div class="card-action">
-                    <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj2/index.html">View project specs</a>
-                </div>
+        <div class="col s4 card-panel indigo lighten-5 hoverable">
+          <div class="card large">
+            <div class="card-image">
+              <img src="images/LOA.png">
+              <span class="card-title grey-text text-darken-3">Lines of Action</span>
             </div>
+            <div class="card-content">
+              <p>Board game invented by Claude Soucie played on a checkerboard with ordinary checkers pieces. Developed a minimax algorithm with Alpha-Beta pruning to defeat other AI.</p>
+            </div>
+            <div class="card-action">
+              <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj2/index.html">View project specs</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col s4 card-panel light-blue lighten-5 hoverable" >
-            <div class="card large">
-                <div class="card-image">
-                    <img src="images/scheme.png">
-                    <span class="card-title grey-text text-darken-3">Scheme Interpreter</span>
-                </div>
-                        <div class="card-content">
-                        <p>Developed interpreter for the LISP programming language Scheme.</p>
-                        </div>
-                        <div class="card-action">
-                    <a href="http://inst.eecs.berkeley.edu/~cs61a/sp19/proj/scheme/">View project specs</a>
-                </div>
+          <div class="card large">
+            <div class="card-image">
+              <img src="images/scheme.png">
+              <span class="card-title grey-text text-darken-3">Scheme Interpreter</span>
             </div>
+            <div class="card-content">
+              <p>Developed interpreter for the LISP programming language Scheme.</p>
+            </div>
+            <div class="card-action">
+              <a href="http://inst.eecs.berkeley.edu/~cs61a/sp19/proj/scheme/">View project specs</a>
+            </div>
+          </div>
         </div>
         <div class="col s4 card-panel teal lighten-5 hoverable" >
-            <div class="card large">
-                <div class="card-image">
-                    <img src="images/enigma.png">
-                    <span class="card-title grey-text text-darken-3">The Enigma</span>
-                </div>
-                        <div class="card-content">
-                        <p> Created a program similar to the one Germany used during WWII to encrypt military communications.</p>
-                        </div>
-                        <div class="card-action">
-                    <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj1/index.html">View project specs</a>
-                </div>
+          <div class="card large">
+            <div class="card-image">
+              <img src="images/enigma.png">
+              <span class="card-title grey-text text-darken-3">The Enigma</span>
             </div>
+            <div class="card-content">
+              <p> Created a program similar to the one Germany used during WWII to encrypt military communications.</p>
+            </div>
+            <div class="card-action">
+              <a href="http://www-inst.eecs.berkeley.edu/~cs61b/sp20/materials/proj/proj1/index.html">View project specs</a>
+            </div>
+          </div>
         </div>
         <div class="col s4 card-panel light-green lighten-5 hoverable" >
-            <div class="card large">
-                <div class="card-image">
-                    <img src="images/ann.png">
-                    <span class="card-title grey-text text-darken-3">ML & Organ Failure</span>
-                </div>
-                        <div class="card-content">
-                        <p> Worked at MIT BWSI with 3 others on research paper about <em> Detecting Organ Failure in Motor Vehicle Trauma Patients:
-                             A Machine Learning Approach.</em> 
-                        It was accepted for publication in IEEE Xplore and was awarded Best Abstract winner in Decision Support and Monitoring 
-                        Category at <a href="https://ai-med.io/interview-the-new-blood-of-ai-medicine-part-one/"> 
-                        AIMed North America 2018.</a> </p>
-                        </div>
-                        <div class="card-action">
-                    <a href="images/ResearchAbstract.pdf">View Abstract</a>
-                </div>
+          <div class="card large">
+            <div class="card-image">
+              <img src="images/ann.png">
+              <span class="card-title grey-text text-darken-3">ML & Organ Failure</span>
             </div>
+            <div class="card-content">
+              <p> Worked at MIT BWSI with 3 others on research paper about <em> Detecting Organ Failure in Motor Vehicle Trauma Patients:
+                  A Machine Learning Approach.</em> 
+                  It was accepted for publication in IEEE Xplore and was awarded Best Abstract winner in Decision Support and Monitoring 
+                  Category at <a href="https://ai-med.io/interview-the-new-blood-of-ai-medicine-part-one/"> 
+                  AIMed North America 2018.</a></p>
+            </div>
+            <div class="card-action">
+              <a href="images/ResearchAbstract.pdf">View Abstract</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="divider"></div>
       <h2 id = "Contact">Contact</h2>
       <div class="row">
-      <p> Feel free to reach out to me if you have any questions. Thanks for taking a look!</p>
+        <p> Feel free to reach out to me if you have any questions. Thanks for taking a look!</p>
       </div>
 
       <a href="https://www.linkedin.com/in/nathannakamitsu/">
-      <button class="button button_blue hoverable valign-container z-depth-1"><p class="valign"> LinkedIn 
-          <img src="images/linkedin.png"></p></button></a>
+        <button class="button button_blue hoverable valign-container z-depth-1"><p class="valign"> LinkedIn 
+        <img src="images/linkedin.png"></p></button></a>
       </a>
       <a href="https://github.com/nnakamitsu">
-      <button class="button button_black hoverable valign-container z-depth-1"><p class="valign"> GitHub 
-          <img src="images/github.png"></p></button></a>
+        <button class="button button_black hoverable valign-container z-depth-1"><p class="valign"> GitHub 
+        <img src="images/github.png"></p></button></a>
       </a>
       <a href = "mailto: nathannakamitsu@gmail.com">
-      <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
-          <img src="images/email-outline.png"></p></button></a>
+        <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
+        <img src="images/email-outline.png"></p></button></a>
       </a>
     </div>
     <script type="text/javascript" src="js/materialize.min.js"></script>
