@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/nnicon.png">
     <link rel="stylesheet2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="script.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script>
@@ -44,7 +43,45 @@
             <div class="row">
                 <div class="col s12 white-text">
                     <h1> Hello, I'm Nathan </h1>
-                    <h5>"It's hard to beat a person who never gives up." -Babe Ruth</h5>
+                    <!-- 
+                    <h5>"It's hard to beat a person who never gives up." -Babe Ruth</h5> -->
+                    <h5><span id="id_quote"></span><span class="blinking-cursor">|</span></h5>
+                    <script>
+                        const quotes =
+                            ["Favorite Quote: \"It's hard to beat a person who never gives up.\" -Babe Ruth", 
+                            "Favorite Movie: Moneyball", 'Favorite Language: Java', 'Favorite Color: Blue', 
+                            'Favorite Sports Team: SF 49ers', 'Favorite Athlete: Julio Jones', 'Favorite Brand: Adidas'];
+
+                        // Pick a random quote.
+                        var quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+                        var i = 0;
+                        var speed = 200;
+
+                        function typeWriter() {
+                            if (i < quote.length) {
+                            document.getElementById("id_quote").innerHTML += quote.charAt(i);
+                            i++;
+                            setTimeout(typeWriter, speed);
+                            } else {
+                                setTimeout(deleteWriter, speed + 500)
+                    
+                            }
+                        } 
+                        function deleteWriter() {
+                            if (i > 0) {
+                                var temp = document.getElementById("id_quote").innerHTML
+                                document.getElementById("id_quote").innerHTML = temp.slice(0, temp.length-1)
+                                i--
+                                setTimeout(deleteWriter, speed / 4)
+                            } else {
+                                quote = quotes[Math.floor(Math.random() * quotes.length)];
+                                setTimeout(typeWriter, speed + 300)
+                            }
+                        }
+                        typeWriter();
+                    </script>
+                
                 </div>
             </div>
         </div>
