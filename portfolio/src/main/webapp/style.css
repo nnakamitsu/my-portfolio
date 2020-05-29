@@ -58,9 +58,10 @@
     }
 }
 
-.button_gray {background-color:darkgray;} /* Gray */
-.button_black {background-color: Black;} /* Gray */
-.button_blue {background-color: #008CBA;} /* Blue */
+.button_gray {background-color:darkgray;}
+.button_black {background-color: Black;}
+.button_blue {background-color: #008CBA;}
+.button_darkblue {background-color: #d29ce2fd;}
 
 ul {
   list-style-type: none;

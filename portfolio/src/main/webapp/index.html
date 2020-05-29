@@ -10,9 +10,10 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
  
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Nathan Nakamitsu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/nnicon.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet2" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -37,7 +38,8 @@
       </nav>
 
       <div class="parallax-container center valign-wrapper">
-        <div class="parallax"><img src="images/pink.jpg"></div>
+        <!--Image Source (free): https://wallpaperaccess.com/sunset-laptop -->
+        <div class="parallax"><img src="images/hq.jpg"></div>
           <div class="container">
             <div class="row">
               <div class="col s12 white-text">
@@ -49,7 +51,9 @@
                             "Favorite Movie: Moneyball", 'Favorite Language: Java', 'Favorite Color: Blue', 
                             'Favorite Sports Team: San Francisco 49ers', 'Favorite Athlete: Julio Jones', 'Favorite Brand: Adidas', 
                             'Favorite Sport: Baseball', 'Favorite Youtuber: Mark Rober', "Favorite Artist: Post Malone", 
-                            "I\'m half Japanese, half Filipino'"];
+                            "I\'m half Japanese, half Filipino", "Favorite Animal: Panda", "Favorite Number: 5",
+                            "Favorite Candy: Jolly Rancher", "Favorite Editor: Atom", "Favorite Song: Goodbyes", 
+                            "Favorite Vacation Spot: Hawaii", "I love to ski", "I love to bowl", "Favorite Video Game: CSGO"];
 
                       // Pick a random quote.
                       var quote = quotes[Math.floor(Math.random() * quotes.length)];
@@ -202,6 +206,42 @@
         </div>
       </div>
       <div class="divider"></div>
+
+      <h2 id = "Skills">Skills</h2>
+    <div class="row">
+      <div class="col s4 valign-container center-align">
+        <i class="material-icons large valign">laptop</i>
+      </div>
+      <div class="col s4">
+        <i class="material-icons font-size:14px">add</i><b>Python</b>
+        <br>
+        <i class="material-icons font-size:14px">add</i><b>Java</b>
+        <br>
+        <i class="material-icons font-size:14px">add</i><b>HTML/CSS</b>
+        <br>
+        <i class="material-icons font-size:14px">add</i><b>JavaScript</b>
+        <br>
+      </div>
+      <div class="col s4">
+        <i class="material-icons font-size:14px">add</i><b>SQL</b>
+        <br>
+        <i class="material-icons font-size:14px">add</i><b>Git</b>
+        <br>
+        <i class="material-icons font-size:14px">add</i><b>Numpy/Pandas</b>
+        <br>
+        <i class="material-icons font-size:14px">add</i><b>TensorFlow</b>
+        <br>
+      </div>
+          <!-- <ul>
+            <li>Python</li>
+            <li>Java</li>
+            <li>HTML/CSS</li>
+            <li>JavaScript</li>
+          </ul> -->
+    </div>
+
+
+      <div class="divider"></div>
       <h2 id = "Contact">Contact</h2>
       <div class="row">
         <p> Feel free to reach out to me if you have any questions. Thanks for taking a look!</p>
@@ -214,6 +254,10 @@
       <a href="https://github.com/nnakamitsu">
         <button class="button button_black hoverable valign-container z-depth-1"><p class="valign"> GitHub 
         <img src="images/github.png"></p></button></a>
+      </a>
+      <a href = "images/NathanNakamitsuResume.pdf">
+        <button class="button button_darkblue hoverable valign-container z-depth-1"><p class="valign">Resume
+        <img src="images/file-account.png"></p></button></a>
       </a>
       <a href = "mailto: nathannakamitsu@gmail.com">
         <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
