@@ -46,4 +46,11 @@ function addRandomGreeting() {
 }
 typeWriter();
 }
-addRandomGreeting();
+
+async function getData() {
+  console.log('Getting Data');
+  const response = await fetch('/data');
+  const data = await response.text();
+  console.log(data)
+  document.getElementById('data-container').innerText = data;
+}
