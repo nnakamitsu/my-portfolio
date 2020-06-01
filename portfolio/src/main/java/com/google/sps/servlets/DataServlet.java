@@ -69,6 +69,8 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
+    int count = 0;
+    int maxcount = Integer.parseInt(request.getParameter("maxcomments"));
 
     List<Task> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
@@ -84,6 +86,10 @@ public class DataServlet extends HttpServlet {
 
       Task task = new Task(id, title, timestamp, name);
       comments.add(task);
+      count++;
+      if (count >= maxcount) {
+        break;
+      }
     }
 
     response.setContentType("application/json;");

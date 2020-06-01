@@ -75,7 +75,7 @@ function createTaskElement(task) {
   if (task.name == undefined) {
     nameElement.innerText = "-- Anonymous";
   } else {
-    nameElement.innerText = "-- " + task.name;
+    nameElement.innerText = "--" + task.name;
   }
   nameElement.style.float = "right";
 
