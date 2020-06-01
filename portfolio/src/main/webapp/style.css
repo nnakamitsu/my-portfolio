@@ -12,6 +12,11 @@
     font-family: helvetica;
 }
 
+.specwidth{
+  width: "24em";
+  height: "1em";
+}
+
 .button {
     border: none;
     color: white;
