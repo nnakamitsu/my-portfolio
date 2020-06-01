@@ -24,7 +24,7 @@
       });
     </script>
   </head>
-  <body>
+  <body onload="loadTasks()">
       
     <div class="container">
       <nav>
@@ -275,8 +275,9 @@
         <input type="submit" />
       </form>
       
-      <button onclick="getData()">Get Data</button>
+      <button onclick="loadTasks()">Get Data</button>
       <div id="data-container"></div>
+      <ul id="task-list"></ul>
 
       <div class="right-align" margin=20px>
         <h6>Developed by Nathan Nakamitsu 2020</h6>

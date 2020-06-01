@@ -54,3 +54,34 @@ async function getData() {
   console.log(data)
   document.getElementById('data-container').innerText = data;
 }
+
+function loadTasks() {
+  fetch('/data').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      console.log(task.comment)
+      taskListElement.appendChild(createTaskElement(task));
+    })
+  });
+}
+
+function createTaskElement(task) {
+  const taskElement = document.createElement('li');
+  taskElement.className = 'task';
+
+  const titleElement = document.createElement('span');
+  titleElement.innerText = task.comment;
+
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
+
+    // Remove the task from the DOM.
+    taskElement.remove();
+  });
+
+  taskElement.appendChild(titleElement);
+  taskElement.appendChild(deleteButtonElement);
+  return taskElement;
+}
