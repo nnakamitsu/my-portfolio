@@ -71,8 +71,17 @@ function createTaskElement(task) {
   const titleElement = document.createElement('span');
   titleElement.innerText = task.title;
 
-  const deleteButtonElement = document.createElement('button');
+  const nameElement = document.createElement('span');
+  if (task.name == undefined) {
+    nameElement.innerText = "-- Anonymous";
+  } else {
+    nameElement.innerText = "-- " + task.name;
+  }
+  nameElement.style.float = "right";
+
+  var deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.style.margin = "5px";
   deleteButtonElement.addEventListener('click', () => {
     deleteTask(task);
 
@@ -81,6 +90,7 @@ function createTaskElement(task) {
   });
 
   taskElement.appendChild(titleElement);
+  taskElement.appendChild(nameElement);
   taskElement.appendChild(deleteButtonElement);
   return taskElement;
 }

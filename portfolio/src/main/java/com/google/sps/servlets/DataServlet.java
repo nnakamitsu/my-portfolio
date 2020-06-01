@@ -35,11 +35,13 @@ public class DataServlet extends HttpServlet {
     public long id;
     public String title;
     public long timestamp;
+    public String name;
 
-    public Task(long id, String title, long timestamp) {
+    public Task(long id, String title, long timestamp, String name) {
       this.id = id;
       this.title = title;
       this.timestamp = timestamp;
+      this.name = name;
     }
 
     public long getId() {
@@ -52,6 +54,10 @@ public class DataServlet extends HttpServlet {
 
     public long getTimestamp() {
       return timestamp;
+    }
+
+    public String getName() {
+      return name;
     }
   }
 
@@ -74,8 +80,9 @@ public class DataServlet extends HttpServlet {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
+      String name = (String) entity.getProperty("name");
 
-      Task task = new Task(id, title, timestamp);
+      Task task = new Task(id, title, timestamp, name);
       comments.add(task);
     }
 
@@ -94,16 +101,19 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
     String title = request.getParameter("title");
+    String name = request.getParameter("name");
     long timestamp = System.currentTimeMillis();
 
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("title", title);
+    taskEntity.setProperty("name", name);
     taskEntity.setProperty("timestamp", timestamp);
     datastore.put(taskEntity);
 
     // Respond with the result.
     response.setContentType("text/html;");
     response.getWriter().println(title);
+    response.getWriter().println(name);
     response.sendRedirect("/index.html");
   }
 }
