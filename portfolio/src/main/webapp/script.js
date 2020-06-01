@@ -84,3 +84,9 @@ function createTaskElement(task) {
   taskElement.appendChild(deleteButtonElement);
   return taskElement;
 }
+
+function deleteTask(task) {
+  const params = new URLSearchParams();
+  params.append('id', task.id);
+  fetch('/delete', {method: 'POST', body: params});
+}
