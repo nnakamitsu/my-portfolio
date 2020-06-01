@@ -59,7 +59,6 @@ function loadTasks() {
   fetch('/data').then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('task-list');
     tasks.forEach((task) => {
-      console.log(task.comment)
       taskListElement.appendChild(createTaskElement(task));
     })
   });
@@ -67,10 +66,10 @@ function loadTasks() {
 
 function createTaskElement(task) {
   const taskElement = document.createElement('li');
-  taskElement.className = 'task';
+  taskElement.className = 'task collection-item';
 
   const titleElement = document.createElement('span');
-  titleElement.innerText = task.comment;
+  titleElement.innerText = task.title;
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';

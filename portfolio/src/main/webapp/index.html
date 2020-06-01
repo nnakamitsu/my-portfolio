@@ -90,7 +90,7 @@
       </div>
       <div class="divider"></div>
       <div class="col s12">
-        <div class="card horizontal">
+        <div class="card horizontal z-depth-0">
           <div class="card-image">
             <img src="/images/me.JPG">
           </div>
@@ -264,20 +264,23 @@
         <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
         <img src="images/email-outline.png"></p></button></a>
       </a>
-      <h1>Text Processor</h1>
+      <br/><br/>
+      <div class="divider"></div>
+      <h4>Comments</h4>
 
       <form action="/data" method="POST">
 
-        <p>Add a comment</p>
-        <textarea name="text-input">one, two, three</textarea>
+        <p>Add a comment!</p>
+        <textarea name="title">v2</textarea>
         <br/><br/>
 
         <input type="submit" />
       </form>
+      <br/>
       
-      <button onclick="loadTasks()">Get Data</button>
+      <button onclick="loadTasks()">Load More Comments</button>
       <div id="data-container"></div>
-      <ul id="task-list"></ul>
+      <ul class="collection" id="task-list"></ul>
 
       <div class="right-align" margin=20px>
         <h6>Developed by Nathan Nakamitsu 2020</h6>

@@ -64,14 +64,19 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
 
-    List<Entity> comments = new ArrayList<>();
+    List<Task> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       // long id = entity.getKey().getId();
       // String title = (String) entity.getProperty("title");
       // long timestamp = (long) entity.getProperty("timestamp");
 
       // Task task = new Task(id, title, timestamp);
-      comments.add(entity);
+      long id = entity.getKey().getId();
+      String title = (String) entity.getProperty("title");
+      long timestamp = (long) entity.getProperty("timestamp");
+
+      Task task = new Task(id, title, timestamp);
+      comments.add(task);
     }
 
     response.setContentType("application/json;");
@@ -88,16 +93,16 @@ public class DataServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String comment = request.getParameter("text-input");
+    String title = request.getParameter("title");
     long timestamp = System.currentTimeMillis();
 
     Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("comment", comment);
+    taskEntity.setProperty("title", title);
     taskEntity.setProperty("timestamp", timestamp);
     datastore.put(taskEntity);
 
     // Respond with the result.
     response.setContentType("text/html;");
-    response.getWriter().println(comment);
+    response.getWriter().println(title);
   }
 }
