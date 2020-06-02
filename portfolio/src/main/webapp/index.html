@@ -19,15 +19,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="script.js"></script>
     <script>
-	  $(document).ready(function() {
-        $('.parallax').parallax();
+      $(document).ready(function() {
+          $('.parallax').parallax();
       });
-    document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, options);
-  });
-
     </script>
+    <script>
+      $(document).ready(function(){
+        $('select').formSelect();
+    });
+    </script>
+    <script>
+      $(document).ready(function(){
+        $("#selectboxID").change(function() {
+          $("#formID").submit();
+        });
+      });
+  </script>
   </head>
   <body onload="loadTasks()">
       
@@ -276,32 +283,37 @@
       <form action="/data" method="POST">
 
         <p>Add a comment below! 
-          <a class='dropdown-trigger btn' href='#' data-target='dropdown1'># of Comments</a>
+          
+          <!-- <a class='dropdown-trigger btn' href='#' data-target='dropdown1'># of Comments</a>
 
           <ul id='dropdown1' class='dropdown-content'>
             <li type="submit" value="Submit">5</a></li>
             <li type="submit" value="Submit">10</a></li>
             <li type="submit" value="Submit">20</a></li>
-          </ul>
+          </ul> -->
         </p>
-        <label for="maxcomments">Choose number of comments to display:</label>
-
-        <select name="maxcomments" id="maxcomments">
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-        <!-- Dropdown Trigger -->
-        <!-- Dropdown Structure -->
-
+        
         <textarea name="title" placeholder="Insert Comment"></textarea>
         <br/><br/>
         
         <textarea name="name" placeholder="Name (optional)" style="height:25px; width:20%"></textarea>
         
-        <input type="submit" />
+        <input type="submit"/>
       </form>
       <br/>
+      <div class="input-field col s3 select-wrapper" style="width:20%">
+        <form action="/data" method="POST"> 
+          <select id="maxcomments" name="maxcomments">
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+          <label>Choose # to display:</label>
+          <!-- <input type="submit" value="Submit"> -->
+          <button onclick="loadTasks()">Reload Comments</button>
+        </form>
+      </div>
       
       <!-- <button onclick="loadTasks()">Reload Comments</button> -->
       <div id="data-container"></div>

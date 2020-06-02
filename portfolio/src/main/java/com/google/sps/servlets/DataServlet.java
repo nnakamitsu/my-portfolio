@@ -60,7 +60,7 @@ public class DataServlet extends HttpServlet {
       return name;
     }
   }
-
+  public int maxcount = 3;
   public ArrayList<String> messages = new ArrayList<String>(List.of("Hello", "Goodbye", "Thanks"));
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   
@@ -70,7 +70,16 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
     int count = 0;
-    int maxcount = Integer.parseInt(request.getParameter("maxcomments"));
+    System.out.println(maxcount);
+    System.out.println(request.getParameter("maxcomments"));
+    maxcount = Integer.parseInt(request.getParameter("maxcomments"));
+    // System.out.println("maxreq");
+    // System.out.println((request.getParameter("maxcomments")));
+    // if (!(request.getParameter("maxcomments") == null)) {
+    //   maxcount = Integer.parseInt(request.getParameter("maxcomments"));
+    // }
+    // int maxcount = Integer.valueOf(request.getParameter("maxcomments"));
+    // System.out.println(maxcount);
 
     List<Task> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
@@ -83,6 +92,8 @@ public class DataServlet extends HttpServlet {
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
       String name = (String) entity.getProperty("name");
+      System.out.println("maxcount");
+      System.out.println(maxcount);
 
       Task task = new Task(id, title, timestamp, name);
       comments.add(task);
@@ -92,9 +103,11 @@ public class DataServlet extends HttpServlet {
       }
     }
 
+
     response.setContentType("application/json;");
     Gson gson = new Gson();
     String json = gson.toJson(comments);
+    System.out.println("hi");
     response.getWriter().println(json);
   }
 
@@ -121,5 +134,14 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(title);
     response.getWriter().println(name);
     response.sendRedirect("/index.html");
+  }
+
+  public void updateCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    System.out.println("maxreq");
+    System.out.println((request.getParameter("maxcomments")));
+    if (!(request.getParameter("maxcomments") == null)) {
+      maxcount = Integer.parseInt(request.getParameter("maxcomments"));
+    }
+  
   }
 }
