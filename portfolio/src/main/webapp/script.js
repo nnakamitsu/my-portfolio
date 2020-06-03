@@ -54,3 +54,89 @@ async function getData() {
   console.log(data)
   document.getElementById('data-container').innerText = data;
 }
+
+function loadTasks() {
+  const commentCount = document.getElementById('maxcomments');
+  console.log(commentCount.value)
+  fetch('/data').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      console.log(task.title)
+      taskListElement.appendChild(createTaskElement(task));
+    })
+  });
+}
+
+function getMessages() {
+  const commentCount = document.getElementById('maxcomments');
+  console.log(commentCount.value)
+  document.getElementById('task-list').innerHTML = "";
+  fetch('/data?maxcomments=' + commentCount.value).then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      console.log(task.title)
+      taskListElement.appendChild(createTaskElement(task));
+    })
+  });
+}
+
+function sortComments() {
+  const sort = document.getElementById('sort');
+  console.log(sort.value)
+  document.getElementById('task-list').innerHTML = "";
+  fetch('/data?sort=' + sort.value).then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      console.log(task.title)
+      taskListElement.appendChild(createTaskElement(task));
+    })
+  });
+}
+
+function updateCount() {
+  location.replace("index.html")
+}
+
+function createTaskElement(task) {
+  const taskElement = document.createElement('li');
+  taskElement.className = 'task collection-item';
+
+  const titleElement = document.createElement('span');
+  titleElement.innerText = task.title;
+
+  const nameElement = document.createElement('span');
+  if (task.name == undefined) {
+    nameElement.innerText = "-- Anonymous";
+  } else {
+    nameElement.innerText = "--" + task.name;
+  }
+  nameElement.style.margin = "15px"
+
+  const timeElement = document.createElement('span');
+  var date = new Date(task.timestamp);
+  timeElement.innerText = date.toString().slice(0,24);
+  timeElement.style.float = "right";
+  timeElement.style.marginRight = "10px";
+
+  var deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.style.float = "right";
+  deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
+
+    // Remove the task from the DOM.
+    taskElement.remove();
+  });
+
+  taskElement.appendChild(titleElement);
+  taskElement.appendChild(nameElement);
+  taskElement.appendChild(deleteButtonElement);
+  taskElement.appendChild(timeElement);
+  return taskElement;
+}
+
+function deleteTask(task) {
+  const params = new URLSearchParams();
+  params.append('id', task.id);
+  fetch('/delete', {method: 'POST', body: params});
+}

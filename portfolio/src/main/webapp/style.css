@@ -12,6 +12,11 @@
     font-family: helvetica;
 }
 
+.specwidth{
+  width: "24em";
+  height: "1em";
+}
+
 .button {
     border: none;
     color: white;
@@ -63,7 +68,7 @@
 .button_blue {background-color: #008CBA;}
 .button_darkblue {background-color: #d29ce2fd;}
 
-ul {
+/* ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -87,7 +92,7 @@ li a {
 
 li a:hover {
     background-color: darkcyan;
-}
+} */
 
 .boxed {
   border: 3px #ffffff;

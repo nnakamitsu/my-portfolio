@@ -19,12 +19,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="script.js"></script>
     <script>
-	  $(document).ready(function() {
-        $('.parallax').parallax();
+      $(document).ready(function() {
+          $('.parallax').parallax();
       });
     </script>
+    <script>
+      $(document).ready(function(){
+        $('select').formSelect();
+    });
+    </script>
+    <script>
+      $(document).ready(function(){
+        $("#selectboxID").change(function() {
+          $("#formID").submit();
+        });
+      });
+  </script>
   </head>
-  <body>
+  <body onload="loadTasks()">
       
     <div class="container">
       <nav>
@@ -90,7 +102,7 @@
       </div>
       <div class="divider"></div>
       <div class="col s12">
-        <div class="card horizontal">
+        <div class="card horizontal z-depth-0">
           <div class="card-image">
             <img src="/images/me.JPG">
           </div>
@@ -264,9 +276,56 @@
         <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
         <img src="images/email-outline.png"></p></button></a>
       </a>
+      <br/><br/>
+      <div class="divider"></div>
+      <h4>Comments</h4>
+
+      <form action="/data" method="POST">
+
+        <p>Add a comment below! </p>
+        
+        <textarea name="title" placeholder="Insert Comment"></textarea>
+        <br/><br/>
+        
+        <textarea name="name" placeholder="Name (optional)" style="height:25px; width:20%"></textarea>
+        
+        <input style="margin-left:10px" type="submit"/>
+      </form>
+      <br/>
+      <div class="row">
+        <div class="input-field col s3 select-wrapper" style="width:20%">
+          <!-- <form action="/data" method="POST">  -->
+          <form>
+          <label>Max # of comments:</label>
+            <select onchange="getMessages()" id="maxcomments" name="maxcomments" required style="width:15%">
+              <option value="" disabled selected>Choose</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+            <!-- <input type="submit"/ padding=10px> -->
+          </form>
+        </div>
+        <div class="input-field col s3 select-wrapper" style="width:25%">
+          <!-- <form action="/data" method="POST">  -->
+          <form>
+          <label>Sort:</label>
+            <select onchange="sortComments()" id="sort" name="sort" required style="width:15%">
+              <option value="" disabled selected>Choose</option>
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="alphabetical">By name alphabetical (A-Z)</option>
+              <option value="reverse-alphabetical">By name alphabetical (Z-A)</option>
+            </select>
+            <!-- <input type="submit"/ padding=10px> -->
+          </form>
+        </div>
+      </div>
+      <br/>
       
-      <button onclick="getData()">Get Data</button>
+      <!-- <button onclick="loadTasks()">Reload Comments</button> -->
       <div id="data-container"></div>
+      <ul class="collection" id="task-list"></ul>
 
       <div class="right-align" margin=20px>
         <h6>Developed by Nathan Nakamitsu 2020</h6>
