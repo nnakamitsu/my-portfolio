@@ -128,12 +128,32 @@ function createTaskElement(task) {
     taskElement.remove();
   });
 
+  // var likeButtonElement = document.createElement('button');
+  // likeButtonElement.innerText = 'Like ' + task.likes.toString();
+  // likeButtonElement.style.float = "center";
+  // likeButtonElement.addEventListener('click', () => {
+  //   addLike(task);
+  //   taskElement.remove();
+  // });
+
   taskElement.appendChild(titleElement);
   taskElement.appendChild(nameElement);
   taskElement.appendChild(deleteButtonElement);
   taskElement.appendChild(timeElement);
+  // taskElement.appendChild(likeButtonElement);
   return taskElement;
 }
+
+// function addLike(task) {
+//   task.likes = task.likes + 1;
+//   document.getElementById('task-list').appendChild(createTaskElement(task));
+
+  // var curr = taskElement.removeChild(taskElement.childNodes[-1])
+  // console.log(curr);
+  // var numlikes = parseInt(curr.slice(5));
+  // curr.innerText = curr.slice(0, 5) + (numlikes + 1).toString();
+  // taskElement.appendChild(curr);
+//}
 
 function deleteTask(task) {
   const params = new URLSearchParams();

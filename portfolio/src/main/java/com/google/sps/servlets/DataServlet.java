@@ -36,12 +36,14 @@ public class DataServlet extends HttpServlet {
     public String title;
     public long timestamp;
     public String name;
+    public int likes;
 
     public Task(long id, String title, long timestamp, String name) {
       this.id = id;
       this.title = title;
       this.timestamp = timestamp;
       this.name = name;
+      this.likes = 0;
     }
 
     public long getId() {
@@ -64,7 +66,7 @@ public class DataServlet extends HttpServlet {
 
   // all options: "newest (descending), oldest (ascending), alphabetical, reverse-alphabetical"
   public String sort = "newest";
-  public ArrayList<String> messages = new ArrayList<String>(List.of("Hello", "Goodbye", "Thanks"));
+  // public ArrayList<String> messages = new ArrayList<String>(List.of("Hello", "Goodbye", "Thanks"));
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   
 
