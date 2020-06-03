@@ -67,6 +67,18 @@ function loadTasks() {
   });
 }
 
+function getMessages() {
+  const commentCount = document.getElementById('maxcomments');
+  console.log(commentCount.value)
+  fetch('/data').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      console.log(task.title)
+      taskListElement.appendChild(createTaskElement(task));
+    })
+  });
+}
+
 function updateCount() {
   location.replace("index.html")
 }

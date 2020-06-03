@@ -282,16 +282,7 @@
 
       <form action="/data" method="POST">
 
-        <p>Add a comment below! 
-          
-          <!-- <a class='dropdown-trigger btn' href='#' data-target='dropdown1'># of Comments</a>
-
-          <ul id='dropdown1' class='dropdown-content'>
-            <li type="submit" value="Submit">5</a></li>
-            <li type="submit" value="Submit">10</a></li>
-            <li type="submit" value="Submit">20</a></li>
-          </ul> -->
-        </p>
+        <p>Add a comment below! </p>
         
         <textarea name="title" placeholder="Insert Comment"></textarea>
         <br/><br/>
@@ -303,18 +294,17 @@
       <br/>
       <div class="input-field col s3 select-wrapper" style="width:20%">
         <form action="/data" method="POST"> 
-          <label>Choose # to display:</label>
-          <select id="maxcomments" name="maxcomments">
+        <label>Max # of comments:</label>
+          <select id="maxcomments" name="maxcomments" required style="width:15%">
             <option value="" disabled selected>Choose</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
           </select>
-          
-          <br/><br/>
-          <input type="submit"/>
+          <input type="submit"/ padding=10px>
         </form>
       </div>
+      <br/>
       
       <!-- <button onclick="loadTasks()">Reload Comments</button> -->
       <div id="data-container"></div>
