@@ -293,15 +293,16 @@
       </form>
       <br/>
       <div class="input-field col s3 select-wrapper" style="width:20%">
-        <form action="/data" method="POST"> 
+        <!-- <form action="/data" method="POST">  -->
+        <form>
         <label>Max # of comments:</label>
-          <select id="maxcomments" name="maxcomments" required style="width:15%">
+          <select onchange="getMessages()" id="maxcomments" name="maxcomments" required style="width:15%">
             <option value="" disabled selected>Choose</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
           </select>
-          <input type="submit"/ padding=10px>
+          <!-- <input type="submit"/ padding=10px> -->
         </form>
       </div>
       <br/>

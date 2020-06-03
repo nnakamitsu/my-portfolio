@@ -75,13 +75,12 @@ public class DataServlet extends HttpServlet {
     // maxcount = Integer.parseInt(request.getParameter("maxcomments"));
     System.out.println(maxcount);
     // System.out.println("maxreq");
-    // System.out.println((request.getParameter("maxcomments")));
-    // if (!(request.getParameter("maxcomments") == null)) {
-    //   maxcount = Integer.parseInt(request.getParameter("maxcomments"));
-    // }
+    System.out.println((request.getParameter("maxcomments")));
+    if (!(request.getParameter("maxcomments") == null)) {
+      maxcount = Integer.parseInt(request.getParameter("maxcomments"));
+    }
     // else{ 
-    //   int maxcount = Integer.valueOf(request.getParameter("maxcomments"));
-    //   System.out.println(maxcount);
+      
     // }
 
     List<Task> comments = new ArrayList<>();
@@ -118,8 +117,8 @@ public class DataServlet extends HttpServlet {
     String json = gson.toJson(lst);
     return json;
   }
-  // A simple HTTP handler to extract text input from submitted web form and respond that context back to the user.
 
+  // A simple HTTP handler to extract text input from submitted web form and respond that context back to the user.
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     if (request.getParameter("maxcomments").equals("")) {
       String title = request.getParameter("title");
