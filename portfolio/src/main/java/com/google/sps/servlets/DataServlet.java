@@ -118,9 +118,9 @@ public class DataServlet extends HttpServlet {
     String json = gson.toJson(lst);
     return json;
   }
+  // A simple HTTP handler to extract text input from submitted web form and respond that context back to the user.
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
     if (request.getParameter("maxcomments").equals("")) {
       String title = request.getParameter("title");
       String name = request.getParameter("name");
@@ -132,7 +132,6 @@ public class DataServlet extends HttpServlet {
       taskEntity.setProperty("timestamp", timestamp);
       datastore.put(taskEntity);
 
-      // Respond with the result.
       response.setContentType("text/html;");
       response.getWriter().println(title);
       response.getWriter().println(name);
