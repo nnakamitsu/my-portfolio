@@ -112,6 +112,12 @@ function createTaskElement(task) {
   }
   nameElement.style.margin = "15px"
 
+  const timeElement = document.createElement('span');
+  var date = new Date(task.timestamp);
+  timeElement.innerText = date.toString().slice(0,24);
+  timeElement.style.float = "right";
+  timeElement.style.marginRight = "10px";
+
   var deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.style.float = "right";
@@ -125,6 +131,7 @@ function createTaskElement(task) {
   taskElement.appendChild(titleElement);
   taskElement.appendChild(nameElement);
   taskElement.appendChild(deleteButtonElement);
+  taskElement.appendChild(timeElement);
   return taskElement;
 }
 
