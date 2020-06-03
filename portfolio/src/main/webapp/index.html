@@ -292,32 +292,34 @@
         <input type="submit"/>
       </form>
       <br/>
-      <div class="input-field col s3 select-wrapper" style="width:20%">
-        <!-- <form action="/data" method="POST">  -->
-        <form>
-        <label>Max # of comments:</label>
-          <select onchange="getMessages()" id="maxcomments" name="maxcomments" required style="width:15%">
-            <option value="" disabled selected>Choose</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-          </select>
-          <!-- <input type="submit"/ padding=10px> -->
-        </form>
-      </div>
-      <div class="input-field col s3 select-wrapper" style="width:20%">
-        <!-- <form action="/data" method="POST">  -->
-        <form>
-        <label>Sort:</label>
-          <select onchange="sortComments()" id="sort" name="sort" required style="width:15%">
-            <option value="" disabled selected>Choose</option>
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-            <option value="alphabetical">Alphabetical (A-Z)</option>
-            <option value="reverse-alphabetical">Alphabetical(Z-A)</option>
-          </select>
-          <!-- <input type="submit"/ padding=10px> -->
-        </form>
+      <div class="row">
+        <div class="input-field col s3 select-wrapper" style="width:20%">
+          <!-- <form action="/data" method="POST">  -->
+          <form>
+          <label>Max # of comments:</label>
+            <select onchange="getMessages()" id="maxcomments" name="maxcomments" required style="width:15%">
+              <option value="" disabled selected>Choose</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+            <!-- <input type="submit"/ padding=10px> -->
+          </form>
+        </div>
+        <div class="input-field col s3 select-wrapper" style="width:20%">
+          <!-- <form action="/data" method="POST">  -->
+          <form>
+          <label>Sort:</label>
+            <select onchange="sortComments()" id="sort" name="sort" required style="width:15%">
+              <option value="" disabled selected>Choose</option>
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="alphabetical">By name alphabetical (A-Z)</option>
+              <option value="reverse-alphabetical">By name alphabetical (Z-A)</option>
+            </select>
+            <!-- <input type="submit"/ padding=10px> -->
+          </form>
+        </div>
       </div>
       <br/>
       

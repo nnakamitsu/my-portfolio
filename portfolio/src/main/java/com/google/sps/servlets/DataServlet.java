@@ -79,38 +79,23 @@ public class DataServlet extends HttpServlet {
     } else if (sort.equals("oldest")) {
       query = new Query("Task").addSort("timestamp", SortDirection.ASCENDING);
     } else if (sort.equals("alphabetical")) {
-      query = new Query("Task").addSort("title", SortDirection.ASCENDING);
+      query = new Query("Task").addSort("name", SortDirection.ASCENDING);
     } else {
-      query = new Query("Task").addSort("title", SortDirection.DESCENDING);
+      query = new Query("Task").addSort("name", SortDirection.DESCENDING);
     }
     PreparedQuery results = datastore.prepare(query);
     int count = 0;
-    System.out.println("maxcomments");
-    // System.out.println(request.getParameter("maxcomments"));
-    // maxcount = Integer.parseInt(request.getParameter("maxcomments"));
-    System.out.println(maxcount);
-    // System.out.println("maxreq");
-    System.out.println((request.getParameter("maxcomments")));
+
     if (!(request.getParameter("maxcomments") == null)) {
       maxcount = Integer.parseInt(request.getParameter("maxcomments"));
     }
-    // else{ 
-      
-    // }
 
     List<Task> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      // long id = entity.getKey().getId();
-      // String title = (String) entity.getProperty("title");
-      // long timestamp = (long) entity.getProperty("timestamp");
-
-      // Task task = new Task(id, title, timestamp);
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
       String name = (String) entity.getProperty("name");
-      System.out.println("maxcount");
-      System.out.println(maxcount);
 
       Task task = new Task(id, title, timestamp, name);
       comments.add(task);
@@ -119,7 +104,6 @@ public class DataServlet extends HttpServlet {
         break;
       }
     }
-
 
     response.setContentType("application/json;");
     Gson gson = new Gson();

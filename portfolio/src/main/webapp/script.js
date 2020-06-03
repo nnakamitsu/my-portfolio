@@ -110,11 +110,11 @@ function createTaskElement(task) {
   } else {
     nameElement.innerText = "--" + task.name;
   }
-  nameElement.style.float = "right";
+  nameElement.style.margin = "15px"
 
   var deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
-  deleteButtonElement.style.margin = "5px";
+  deleteButtonElement.style.float = "right";
   deleteButtonElement.addEventListener('click', () => {
     deleteTask(task);
 
