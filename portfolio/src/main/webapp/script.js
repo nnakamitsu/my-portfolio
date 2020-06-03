@@ -58,7 +58,7 @@ async function getData() {
 function loadTasks() {
   const commentCount = document.getElementById('maxcomments');
   console.log(commentCount.value)
-  fetch('/data?maxcomments=10').then(response => response.json()).then((tasks) => {
+  fetch('/data').then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('task-list');
     tasks.forEach((task) => {
       console.log(task.title)

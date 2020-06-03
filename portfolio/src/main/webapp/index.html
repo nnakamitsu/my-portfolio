@@ -303,15 +303,16 @@
       <br/>
       <div class="input-field col s3 select-wrapper" style="width:20%">
         <form action="/data" method="POST"> 
+          <label>Choose # to display:</label>
           <select id="maxcomments" name="maxcomments">
-            <option value="3">3</option>
+            <option value="" disabled selected>Choose</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
           </select>
-          <label>Choose # to display:</label>
-          <!-- <input type="submit" value="Submit"> -->
-          <button onclick="loadTasks()">Reload Comments</button>
+          
+          <br/><br/>
+          <input type="submit"/>
         </form>
       </div>
       

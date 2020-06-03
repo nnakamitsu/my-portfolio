@@ -70,16 +70,19 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
     int count = 0;
+    System.out.println("maxcomments");
+    // System.out.println(request.getParameter("maxcomments"));
+    // maxcount = Integer.parseInt(request.getParameter("maxcomments"));
     System.out.println(maxcount);
-    System.out.println(request.getParameter("maxcomments"));
-    maxcount = Integer.parseInt(request.getParameter("maxcomments"));
     // System.out.println("maxreq");
     // System.out.println((request.getParameter("maxcomments")));
     // if (!(request.getParameter("maxcomments") == null)) {
     //   maxcount = Integer.parseInt(request.getParameter("maxcomments"));
     // }
-    // int maxcount = Integer.valueOf(request.getParameter("maxcomments"));
-    // System.out.println(maxcount);
+    // else{ 
+    //   int maxcount = Integer.valueOf(request.getParameter("maxcomments"));
+    //   System.out.println(maxcount);
+    // }
 
     List<Task> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
@@ -107,7 +110,6 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     Gson gson = new Gson();
     String json = gson.toJson(comments);
-    System.out.println("hi");
     response.getWriter().println(json);
   }
 
@@ -119,21 +121,27 @@ public class DataServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String title = request.getParameter("title");
-    String name = request.getParameter("name");
-    long timestamp = System.currentTimeMillis();
+    if (request.getParameter("maxcomments").equals("")) {
+      String title = request.getParameter("title");
+      String name = request.getParameter("name");
+      long timestamp = System.currentTimeMillis();
 
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("title", title);
-    taskEntity.setProperty("name", name);
-    taskEntity.setProperty("timestamp", timestamp);
-    datastore.put(taskEntity);
+      Entity taskEntity = new Entity("Task");
+      taskEntity.setProperty("title", title);
+      taskEntity.setProperty("name", name);
+      taskEntity.setProperty("timestamp", timestamp);
+      datastore.put(taskEntity);
 
-    // Respond with the result.
-    response.setContentType("text/html;");
-    response.getWriter().println(title);
-    response.getWriter().println(name);
-    response.sendRedirect("/index.html");
+      // Respond with the result.
+      response.setContentType("text/html;");
+      response.getWriter().println(title);
+      response.getWriter().println(name);
+      response.sendRedirect("/index.html");
+    } else {
+      maxcount = Integer.parseInt(request.getParameter("maxcomments"));
+      System.out.println("I got here" + maxcount);
+      response.sendRedirect("/index.html");
+    }
   }
 
   public void updateCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
