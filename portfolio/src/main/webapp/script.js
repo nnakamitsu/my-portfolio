@@ -70,8 +70,21 @@ function loadTasks() {
 function getMessages() {
   const commentCount = document.getElementById('maxcomments');
   console.log(commentCount.value)
-  document.getElementById('task-list').innerHTML="";
+  document.getElementById('task-list').innerHTML = "";
   fetch('/data?maxcomments=' + commentCount.value).then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('task-list');
+    tasks.forEach((task) => {
+      console.log(task.title)
+      taskListElement.appendChild(createTaskElement(task));
+    })
+  });
+}
+
+function sortComments() {
+  const sort = document.getElementById('sort');
+  console.log(sort.value)
+  document.getElementById('task-list').innerHTML = "";
+  fetch('/data?sort=' + sort.value).then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('task-list');
     tasks.forEach((task) => {
       console.log(task.title)

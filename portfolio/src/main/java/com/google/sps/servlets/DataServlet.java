@@ -61,13 +61,28 @@ public class DataServlet extends HttpServlet {
     }
   }
   public int maxcount = 3;
+
+  // all options: "newest (descending), oldest (ascending), alphabetical, reverse-alphabetical"
+  public String sort = "newest";
   public ArrayList<String> messages = new ArrayList<String>(List.of("Hello", "Goodbye", "Thanks"));
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    if (!(request.getParameter("sort") == null)) {
+      sort = request.getParameter("sort");
+    }
+    Query query;
+    if (sort.equals("newest")) {
+      query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    } else if (sort.equals("oldest")) {
+      query = new Query("Task").addSort("timestamp", SortDirection.ASCENDING);
+    } else if (sort.equals("alphabetical")) {
+      query = new Query("Task").addSort("title", SortDirection.ASCENDING);
+    } else {
+      query = new Query("Task").addSort("title", SortDirection.DESCENDING);
+    }
     PreparedQuery results = datastore.prepare(query);
     int count = 0;
     System.out.println("maxcomments");
@@ -120,26 +135,22 @@ public class DataServlet extends HttpServlet {
 
   // A simple HTTP handler to extract text input from submitted web form and respond that context back to the user.
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    if (request.getParameter("maxcomments").equals("")) {
-      String title = request.getParameter("title");
-      String name = request.getParameter("name");
-      long timestamp = System.currentTimeMillis();
+    
+    String title = request.getParameter("title");
+    String name = request.getParameter("name");
+    long timestamp = System.currentTimeMillis();
 
-      Entity taskEntity = new Entity("Task");
-      taskEntity.setProperty("title", title);
-      taskEntity.setProperty("name", name);
-      taskEntity.setProperty("timestamp", timestamp);
-      datastore.put(taskEntity);
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("title", title);
+    taskEntity.setProperty("name", name);
+    taskEntity.setProperty("timestamp", timestamp);
+    datastore.put(taskEntity);
 
-      response.setContentType("text/html;");
-      response.getWriter().println(title);
-      response.getWriter().println(name);
-      response.sendRedirect("/index.html");
-    } else {
-      maxcount = Integer.parseInt(request.getParameter("maxcomments"));
-      System.out.println("I got here" + maxcount);
-      response.sendRedirect("/index.html");
-    }
+    response.setContentType("text/html;");
+    response.getWriter().println(title);
+    response.getWriter().println(name);
+    response.sendRedirect("/index.html");
+    
   }
 
   public void updateCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
