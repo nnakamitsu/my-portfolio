@@ -16,15 +16,6 @@
  * Adds a random greeting to the page.
  */
 function addRandomGreeting() {
-//   const greetings =
-//       ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
-
-//   // Pick a random greeting.
-//   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-//   // Add it to the page.
-//   const greetingContainer = document.getElementById('greeting-container');
-//   greetingContainer.innerText = greeting;
   
   const quotes =
       ["\"It's hard to beat a person who never gives up.\" -Babe Ruth", 
@@ -128,32 +119,13 @@ function createTaskElement(task) {
     taskElement.remove();
   });
 
-  // var likeButtonElement = document.createElement('button');
-  // likeButtonElement.innerText = 'Like ' + task.likes.toString();
-  // likeButtonElement.style.float = "center";
-  // likeButtonElement.addEventListener('click', () => {
-  //   addLike(task);
-  //   taskElement.remove();
-  // });
 
   taskElement.appendChild(titleElement);
   taskElement.appendChild(nameElement);
   taskElement.appendChild(deleteButtonElement);
   taskElement.appendChild(timeElement);
-  // taskElement.appendChild(likeButtonElement);
   return taskElement;
 }
-
-// function addLike(task) {
-//   task.likes = task.likes + 1;
-//   document.getElementById('task-list').appendChild(createTaskElement(task));
-
-  // var curr = taskElement.removeChild(taskElement.childNodes[-1])
-  // console.log(curr);
-  // var numlikes = parseInt(curr.slice(5));
-  // curr.innerText = curr.slice(0, 5) + (numlikes + 1).toString();
-  // taskElement.appendChild(curr);
-//}
 
 function deleteTask(task) {
   const params = new URLSearchParams();
@@ -164,6 +136,8 @@ function deleteTask(task) {
 /** Creates a Google map and adds it to the page. */
 var marker;
 var marker2;
+var currentBouncer = null;
+var isBouncing = false;
 function createMap() {
   var myLocation = {lat: 37.872052, lng: -122.259391};
   var marugame = {lat: 37.873307, lng: -122.268291};
@@ -171,20 +145,33 @@ function createMap() {
       document.getElementById('map'),
       {center: myLocation, zoom: 13});
 
-  marker = new google.maps.Marker({position: myLocation, map: map});
-  marker.addListener('click', toggleBounce(marker));
-  marker.addListener('click', editMarkerText("Where I am located"));
+  marker = new google.maps.Marker({position: myLocation, map: map, animation: null});
+  marker.addListener('click', () => {
+    toggleBounce(marker)});
+  marker.addListener('click', () => {
+    editMarkerText("Where I am located")});
 
-  marker2 = new google.maps.Marker({position: marugame, map: map});
-  marker2.addListener('click', toggleBounce(marker2));
-  marker2.addListener('click', editMarkerText("Marugame Udon: My favorite restaurant in Berkeley"));
+  marker2 = new google.maps.Marker({position: marugame, map: map, animation: null});
+  marker2.addListener('click', () => {
+    toggleBounce(marker2)});
+  marker2.addListener('click', () => {
+    editMarkerText("Marugame Udon: My favorite restaurant in Berkeley")});
 }
 
-function toggleBounce(marker) {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
+function toggleBounce(m) { 
+        console.log(m.getAnimation());
+        if (m.getAnimation() !== null) {
+          m.setAnimation(null);
+          isBouncing = false;
+          currentBouncer = null;
+        } else if (currentBouncer === null){
+          m.setAnimation(google.maps.Animation.BOUNCE);
+          isBouncing = true;
+          currentBouncer = m;
         } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
+          currentBouncer.setAnimation(null);
+          currentBouncer = m;
+          m.setAnimation(google.maps.Animation.BOUNCE);
         }
       }
 
