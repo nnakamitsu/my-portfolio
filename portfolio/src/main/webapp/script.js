@@ -69,7 +69,7 @@ function loadTasks() {
 
 function getMessages() {
   const commentCount = document.getElementById('maxcomments');
-  console.log(commentCount.value)
+  console.log(commentCount.name)
   document.getElementById('task-list').innerHTML = "";
   fetch('/data?maxcomments=' + commentCount.value).then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('task-list');
@@ -105,10 +105,10 @@ function createTaskElement(task) {
   titleElement.innerText = task.title;
 
   const nameElement = document.createElement('span');
-  if (task.name == undefined) {
-    nameElement.innerText = "-- Anonymous";
+  if (task.name === undefined || task.name === "") {
+    nameElement.innerHTML = "-- Anonymous".italics();
   } else {
-    nameElement.innerText = "--" + task.name;
+    nameElement.innerHTML = ("--" + task.name).italics();
   }
   nameElement.style.margin = "15px"
 
