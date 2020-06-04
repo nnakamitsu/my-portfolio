@@ -160,3 +160,15 @@ function deleteTask(task) {
   params.append('id', task.id);
   fetch('/delete', {method: 'POST', body: params});
 }
+
+/** Creates a Google map and adds it to the page. */
+function createMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 37.872052, lng: -122.259391}, zoom: 16});
+}
+
+function loadPage() {
+  loadTasks();
+  createMap();
+}

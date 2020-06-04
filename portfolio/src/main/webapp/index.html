@@ -35,10 +35,9 @@
         });
       });
   </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvceADttLfuds22jOnJ-_368VzSOG16D4&callback=initMap"
-  type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvceADttLfuds22jOnJ-_368VzSOG16D4"></script>
   </head>
-  <body onload="loadTasks()">
+  <body onload="loadPage();">
       
     <div class="container">
       <nav>
@@ -261,23 +260,29 @@
       <div class="row">
         <p> Feel free to reach out to me if you have any questions. Thanks for taking a look!</p>
       </div>
-
-      <a href="https://www.linkedin.com/in/nathannakamitsu/">
-        <button class="button button_blue hoverable valign-container z-depth-1"><p class="valign"> LinkedIn 
-        <img src="images/linkedin.png"></p></button></a>
-      </a>
-      <a href="https://github.com/nnakamitsu">
-        <button class="button button_black hoverable valign-container z-depth-1"><p class="valign"> GitHub 
-        <img src="images/github.png"></p></button></a>
-      </a>
-      <a href = "images/NathanNakamitsuResume.pdf">
-        <button class="button button_darkblue hoverable valign-container z-depth-1"><p class="valign">Resume
-        <img src="images/file-account.png"></p></button></a>
-      </a>
-      <a href = "mailto: nathannakamitsu@gmail.com">
-        <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
-        <img src="images/email-outline.png"></p></button></a>
-      </a>
+      <div class="row">
+        <div class="col s8">
+          <a href="https://www.linkedin.com/in/nathannakamitsu/">
+            <button class="button button_blue hoverable valign-container z-depth-1"><p class="valign"> LinkedIn 
+            <img src="images/linkedin.png"></p></button></a>
+          </a>
+          <a href="https://github.com/nnakamitsu">
+            <button class="button button_black hoverable valign-container z-depth-1"><p class="valign"> GitHub 
+            <img src="images/github.png"></p></button></a>
+          </a>
+          <a href = "images/NathanNakamitsuResume.pdf">
+            <button class="button button_darkblue hoverable valign-container z-depth-1"><p class="valign">Resume
+            <img src="images/file-account.png"></p></button></a>
+          </a>
+          <a href = "mailto: nathannakamitsu@gmail.com">
+            <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
+            <img src="images/email-outline.png"></p></button></a>
+          </a>
+        </div>
+        <div id="map" class="col s4">
+        </div>
+      </div>
+      <!-- <div id="map"></div> -->
       <br/><br/>
       <div class="divider"></div>
       <h4>Comments</h4>
