@@ -162,10 +162,34 @@ function deleteTask(task) {
 }
 
 /** Creates a Google map and adds it to the page. */
+var marker;
+var marker2;
 function createMap() {
+  var myLocation = {lat: 37.872052, lng: -122.259391};
+  var marugame = {lat: 37.873307, lng: -122.268291};
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: {lat: 37.872052, lng: -122.259391}, zoom: 16});
+      {center: myLocation, zoom: 13});
+
+  marker = new google.maps.Marker({position: myLocation, map: map});
+  marker.addListener('click', toggleBounce(marker));
+  marker.addListener('click', editMarkerText("Where I am located"));
+
+  marker2 = new google.maps.Marker({position: marugame, map: map});
+  marker2.addListener('click', toggleBounce(marker2));
+  marker2.addListener('click', editMarkerText("Marugame Udon: My favorite restaurant in Berkeley"));
+}
+
+function toggleBounce(marker) {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+
+function editMarkerText(message) {
+  document.getElementById('markerText').innerHTML = message;
 }
 
 function loadPage() {
