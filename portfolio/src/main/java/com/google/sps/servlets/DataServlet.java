@@ -66,7 +66,6 @@ public class DataServlet extends HttpServlet {
 
   // all options: "newest (descending), oldest (ascending), alphabetical, reverse-alphabetical"
   public String sort = "newest";
-  // public ArrayList<String> messages = new ArrayList<String>(List.of("Hello", "Goodbye", "Thanks"));
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   
 
