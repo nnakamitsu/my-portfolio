@@ -35,8 +35,9 @@
         });
       });
   </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvceADttLfuds22jOnJ-_368VzSOG16D4"></script>
   </head>
-  <body onload="loadTasks()">
+  <body onload="loadPage();">
       
     <div class="container">
       <nav>
@@ -110,8 +111,19 @@
             <div class="card-content">
               <h2 id = "AboutMe">About me</h2>
               <h6>Hello! My name is Nathan and I'm from Los Altos Hills, CA.  
-                    I am a rising sophomore at UC Berkeley studying Computer Science and Data Science interested
-                    in learning more about software engineering and machine learning.
+                    I am a rising sophomore at 
+                    <span style="color:#0d47a1" display: "inline-block">U</span><!--
+                    --><span style="color:#DAA520" display: "inline-block">C</span><!--
+                    --><span> </span><!--
+                    --><span style="color:#0d47a1">B</span><!--
+                    --><span style="color:#DAA520">e</span><!--
+                    --><span style="color:#0d47a1">r</span><!--
+                    --><span style="color:#DAA520">k</span><!--
+                    --><span style="color:#0d47a1">e</span><!--
+                    --><span style="color:#DAA520">l</span><!--
+                    --><span style="color:#0d47a1">e</span><!--
+                    --><span style="color:#DAA520">y</span>
+                    studying Computer Science and Data Science interested in learning more about software engineering and machine learning.
                     I am also a huge sports fan. I love to play all sports 
                     (especially baseball and soccer), compete in fantasy sports, and, 
                     of course, watch my favorite teams and athletes compete in the MLB, NFL, and NBA.
@@ -257,39 +269,55 @@
       <div class="divider"></div>
       <h2 id = "Contact">Contact</h2>
       <div class="row">
-        <p> Feel free to reach out to me if you have any questions. Thanks for taking a look!</p>
+        <div class="col s8">
+          <h6> Feel free to reach out to me if you have any questions. Thanks for taking a look!</h6>
+        </div>
+        <div class="col s4">
+          <h6 margin-left="0px"> Click the markers below to learn more!</h6>
+        </div>
       </div>
-
-      <a href="https://www.linkedin.com/in/nathannakamitsu/">
-        <button class="button button_blue hoverable valign-container z-depth-1"><p class="valign"> LinkedIn 
-        <img src="images/linkedin.png"></p></button></a>
-      </a>
-      <a href="https://github.com/nnakamitsu">
-        <button class="button button_black hoverable valign-container z-depth-1"><p class="valign"> GitHub 
-        <img src="images/github.png"></p></button></a>
-      </a>
-      <a href = "images/NathanNakamitsuResume.pdf">
-        <button class="button button_darkblue hoverable valign-container z-depth-1"><p class="valign">Resume
-        <img src="images/file-account.png"></p></button></a>
-      </a>
-      <a href = "mailto: nathannakamitsu@gmail.com">
-        <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
-        <img src="images/email-outline.png"></p></button></a>
-      </a>
+      <div class="row">
+        <div class="col s8">
+          <a href="https://www.linkedin.com/in/nathannakamitsu/">
+            <button class="button button_blue hoverable valign-container z-depth-1"><p class="valign"> LinkedIn 
+            <img src="images/linkedin.png"></p></button></a>
+          </a>
+          <a href="https://github.com/nnakamitsu">
+            <button class="button button_black hoverable valign-container z-depth-1"><p class="valign"> GitHub 
+            <img src="images/github.png"></p></button></a>
+          </a>
+          <a href = "images/NathanNakamitsuResume.pdf">
+            <button class="button button_darkblue hoverable valign-container z-depth-1"><p class="valign">Resume
+            <img src="images/file-account.png"></p></button></a>
+          </a>
+          <a href = "mailto: nathannakamitsu@gmail.com">
+            <button class="button button_grey hoverable valign-container z-depth-1"><p class="valign"> Email 
+            <img src="images/email-outline.png"></p></button></a>
+          </a>
+          <br/><br/>
+          <div class="row">
+            <h5 id="markerText" class="col s8">
+            </h5>
+          </div>
+        </div>
+        <div id="map" class="col s4">
+        </div>
+      </div>
+      <!-- <div id="map"></div> -->
       <br/><br/>
       <div class="divider"></div>
       <h4>Comments</h4>
 
       <form action="/data" method="POST">
 
-        <p>Add a comment below! </p>
+        <h6>Add a comment below! </h6>
         
         <textarea name="title" placeholder="Insert Comment"></textarea>
         <br/><br/>
         
         <textarea name="name" placeholder="Name (optional)" style="height:25px; width:20%"></textarea>
         
-        <input style="margin-left:10px" type="submit"/>
+        <input class="button button_blue hoverable z-depth-1" style="margin-left:10px" type="submit"/>
       </form>
       <br/>
       <div class="row">
@@ -324,8 +352,9 @@
       <br/>
       
       <!-- <button onclick="loadTasks()">Reload Comments</button> -->
-      <div id="data-container"></div>
+      <!-- <div id="data-container"></div> -->
       <ul class="collection" id="task-list"></ul>
+      <br>
 
       <div class="right-align" margin=20px>
         <h6>Developed by Nathan Nakamitsu 2020</h6>
