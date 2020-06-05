@@ -136,26 +136,48 @@ function deleteTask(task) {
 /** Creates a Google map and adds it to the page. */
 var marker;
 var marker2;
+var marker3;
+var marker4;
 var currentBouncer = null;
+
 var isBouncing = false;
 function createMap() {
-  var myLocation = {lat: 37.872052, lng: -122.259391};
+  var wheeler = {lat: 37.871279, lng:-122.259139};
   var marugame = {lat: 37.873307, lng: -122.268291};
+  var sweetheart = {lat: 37.868004, lng: -122.2577686};
+  var moffitt = {lat: 37.872778, lng: -122.260665};
+  var center = {lat:37.871520, lng:-122.261509}
+
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: myLocation, zoom: 13});
+      {center: center, zoom: 14});
 
-  marker = new google.maps.Marker({position: myLocation, map: map, animation: null});
+  marker = new google.maps.Marker({position: wheeler, map: map, animation: null});
   marker.addListener('click', () => {
-    editMarkerText("Where I am located")});
+    editMarkerText("<b>Wheeler Hall:</b> The OG lecture hall where I get to witness \
+    my legendary professors live in action.")});
   marker.addListener('click', () => {
     toggleBounce(marker)});
 
   marker2 = new google.maps.Marker({position: marugame, map: map, animation: null});
   marker2.addListener('click', () => {
-    editMarkerText("Marugame Udon: My favorite restaurant in Berkeley")});
+    editMarkerText("<b>Marugame Udon:</b> Undoubtedly my go to restaurant in Berkeley. I \
+    highly recommend the Curry Nikutama!")});
   marker2.addListener('click', () => {
     toggleBounce(marker2)});
+
+  marker3 = new google.maps.Marker({position: sweetheart, map: map, animation: null});
+  marker3.addListener('click', () => {
+    editMarkerText("<b>SweetHeart Cafe & Tea:</b> My go to late night snack. You can't go wrong \
+    with the <i>Hong Kong Style Lemon Tea</i> and <i>Spicy Popcorn Chicken</i>.")});
+  marker3.addListener('click', () => {
+    toggleBounce(marker3)});
+
+  marker4 = new google.maps.Marker({position: moffitt, map: map, animation: null});
+  marker4.addListener('click', () => {
+    editMarkerText("<b>Moffitt Library:</b> The savior where late night grinds are made possible.")});
+  marker4.addListener('click', () => {
+    toggleBounce(marker4)});
 }
 
 function toggleBounce(m) { 
