@@ -28,8 +28,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-// import org.jsoup.Jsoup;
-// import org.jsoup.safety.Whitelist;
 
 /** Handles fetching and saving markers data. */
 @WebServlet("/markers")
@@ -76,7 +74,6 @@ public class MarkerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) {
     double lat = Double.parseDouble(request.getParameter("lat"));
     double lng = Double.parseDouble(request.getParameter("lng"));
-    // String content = Jsoup.clean(request.getParameter("content"), Whitelist.none());
     String content = request.getParameter("content");
     Marker marker = new Marker(lat, lng, content);
     storeMarker(marker);
