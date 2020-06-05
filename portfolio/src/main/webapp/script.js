@@ -97,9 +97,9 @@ function createTaskElement(task) {
 
   const nameElement = document.createElement('span');
   if (task.name === undefined || task.name === "") {
-    nameElement.innerHTML = "-- Anonymous".italics();
+    nameElement.innerHTML = "-- Anonymous".italics().bold();
   } else {
-    nameElement.innerHTML = ("--" + task.name).italics();
+    nameElement.innerHTML = ("--" + task.name).italics().bold();
   }
   nameElement.style.margin = "15px"
 
@@ -147,15 +147,15 @@ function createMap() {
 
   marker = new google.maps.Marker({position: myLocation, map: map, animation: null});
   marker.addListener('click', () => {
-    toggleBounce(marker)});
-  marker.addListener('click', () => {
     editMarkerText("Where I am located")});
+  marker.addListener('click', () => {
+    toggleBounce(marker)});
 
   marker2 = new google.maps.Marker({position: marugame, map: map, animation: null});
   marker2.addListener('click', () => {
-    toggleBounce(marker2)});
-  marker2.addListener('click', () => {
     editMarkerText("Marugame Udon: My favorite restaurant in Berkeley")});
+  marker2.addListener('click', () => {
+    toggleBounce(marker2)});
 }
 
 function toggleBounce(m) { 
@@ -164,6 +164,7 @@ function toggleBounce(m) {
           m.setAnimation(null);
           isBouncing = false;
           currentBouncer = null;
+          editMarkerText("");
         } else if (currentBouncer === null){
           m.setAnimation(google.maps.Animation.BOUNCE);
           isBouncing = true;
