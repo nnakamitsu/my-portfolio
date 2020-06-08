@@ -120,7 +120,11 @@ function createTaskElement(task) {
   nameElement.style.marginLeft = "15px"
 
   const emailElement = document.createElement('span');
-  emailElement.innerHTML = "(" + task.email + ")";
+  if (task.displayemail === "on") {
+    emailElement.innerHTML = "(" + task.email + ")";
+  } else {
+    emailElement.innerHTML = "(Hidden email)"
+  }
   emailElement.style.margin = "2px";
 
   const timeElement = document.createElement('span');

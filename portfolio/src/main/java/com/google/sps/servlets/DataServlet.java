@@ -41,14 +41,16 @@ public class DataServlet extends HttpServlet {
     public String name;
     public int likes;
     public String email;
+    public String displayemail;
 
-    public Task(long id, String title, long timestamp, String name, String email) {
+    public Task(long id, String title, long timestamp, String name, String email, String displayemail) {
       this.id = id;
       this.title = title;
       this.timestamp = timestamp;
       this.name = name;
       this.likes = 0;
       this.email = email;
+      this.displayemail = displayemail;
     }
 
     public long getId() {
@@ -70,6 +72,7 @@ public class DataServlet extends HttpServlet {
     public String getEmail() {
       return email;
     }
+
   }
   public int maxcount = 3;
 
@@ -81,8 +84,6 @@ public class DataServlet extends HttpServlet {
   /** Responds with a JSON array containing comments data. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    UserService userService = UserServiceFactory.getUserService();
-
     if (!(request.getParameter("sort") == null)) {
       sort = request.getParameter("sort");
     }
@@ -110,7 +111,8 @@ public class DataServlet extends HttpServlet {
       long timestamp = (long) entity.getProperty("timestamp");
       String name = (String) entity.getProperty("name");
       String email = (String) entity.getProperty("email");
-      Task task = new Task(id, title, timestamp, name, email);
+      String displayemail = (String) entity.getProperty("displayemail");
+      Task task = new Task(id, title, timestamp, name, email, displayemail);
       comments.add(task);
 
       count++;
@@ -137,33 +139,31 @@ public class DataServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
 
     // Must be logged in to post comments
-    System.out.println("User:" + userService.isUserLoggedIn());
-    if (!userService.isUserLoggedIn()) {
-      response.getWriter().println("<p>You must be logged in to submit a comment!</p>");
-      return;
+    String title = request.getParameter("title");
+    String name = request.getParameter("name");
+    long timestamp = System.currentTimeMillis();
+    String email = userService.getCurrentUser().getEmail();
+    String displayemail;
+    
+    if (request.getParameter("displayemail") == null) {
+      displayemail = "off";
     } else {
-      String title = request.getParameter("title");
-      String name = request.getParameter("name");
-      long timestamp = System.currentTimeMillis();
-      String email = userService.getCurrentUser().getEmail();
-
-      Entity taskEntity = new Entity("Task");
-      taskEntity.setProperty("title", title);
-      taskEntity.setProperty("name", name);
-      taskEntity.setProperty("timestamp", timestamp);
-      taskEntity.setProperty("email", email);
-      datastore.put(taskEntity);
-
-      response.setContentType("text/html;");
-      response.getWriter().println(title);
-      response.getWriter().println(name);
-      response.sendRedirect("/index.html");
+      displayemail = "on";
     }
+
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("title", title);
+    taskEntity.setProperty("name", name);
+    taskEntity.setProperty("timestamp", timestamp);
+    taskEntity.setProperty("email", email);
+    taskEntity.setProperty("displayemail", displayemail);
+    datastore.put(taskEntity);
+
+    response.sendRedirect("/index.html");
+    
   }
 
   public void updateCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    System.out.println("maxreq");
-    System.out.println((request.getParameter("maxcomments")));
     if (!(request.getParameter("maxcomments") == null)) {
       maxcount = Integer.parseInt(request.getParameter("maxcomments"));
     }
