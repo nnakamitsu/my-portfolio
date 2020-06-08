@@ -141,9 +141,16 @@ var marker4;
 var marker5;
 var currentBouncer = null;
 
+var map;
+var editMarker;
+
 var isBouncing = false;
 
 var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+var userIconBase = "http://maps.google.com/mapfiles/kml/paddle/"
+
+var userIcon;
 
 function createMap() {
   var wheeler = {lat: 37.871032, lng: -122.258893};
@@ -152,22 +159,20 @@ function createMap() {
   var moffitt = {lat: 37.872778, lng: -122.260665};
   var rsf = {lat: 37.868571, lng: -122.262752};
   var center = {lat:37.871520, lng:-122.261509};
-
-  var icon1 = {url: iconBase + 'dining.png', // url
-    scaledSize: new google.maps.Size(40, 40), // scaled size
-  };
   
-  function makeIcon(name, scale) {
-    return {url: iconBase + name, scaledSize: new google.maps.Size(scale, scale)};
+  function makeIcon(base, name, scale) {
+    return {url: base + name, scaledSize: new google.maps.Size(scale, scale)};
   }
 
-  var icon1 = makeIcon("ruler.png", 40)
-  var icon2 = makeIcon("dining.png", 40);
-  var icon3 = makeIcon("snack_bar.png", 40);
-  var icon4 = makeIcon("schools.png", 40);
-  var icon5 = makeIcon("play.png", 40);
+  var icon1 = makeIcon(iconBase, "ruler.png", 40)
+  var icon2 = makeIcon(iconBase, "dining.png", 40);
+  var icon3 = makeIcon(iconBase, "snack_bar.png", 40);
+  var icon4 = makeIcon(iconBase, "schools.png", 40);
+  var icon5 = makeIcon(iconBase, "play.png", 40);
 
-  const map = new google.maps.Map(
+  userIcon = makeIcon(userIconBase, "purple-stars.png", 40);
+
+  map = new google.maps.Map(
       document.getElementById('map'),
       {center: center, zoom: 14});
 
@@ -204,6 +209,76 @@ function createMap() {
     and shoot hoops.")});
   marker5.addListener('click', () => {
     toggleBounce(marker5)});
+
+  map.addListener('click', (event) => {
+  createMarkerForEdit(event.latLng.lat(), event.latLng.lng());
+  });
+
+  fetchMarkers();
+}
+
+function fetchMarkers() {
+  fetch('/markers').then(response => response.json()).then((markers) => {
+    markers.forEach(
+        (marker) => {
+            createMarkerForDisplay(marker.lat, marker.lng, marker.content)});
+  });
+}
+
+function createMarkerForDisplay(lat, lng, content) {
+  const marker =
+      new google.maps.Marker({position: {lat: lat, lng: lng}, map: map, icon: userIcon});
+
+  const infoWindow = new google.maps.InfoWindow({content: content});
+  marker.addListener('click', () => {
+    infoWindow.open(map, marker);
+  });
+}
+
+function postMarker(lat, lng, content) {
+  const params = new URLSearchParams();
+  params.append('lat', lat);
+  params.append('lng', lng);
+  params.append('content', content);
+
+  fetch('/markers', {method: 'POST', body: params});
+}
+
+function createMarkerForEdit(lat, lng) {
+  if (editMarker) {
+    editMarker.setMap(null);
+  }
+
+  editMarker =
+      new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
+
+  const infoWindow =
+      new google.maps.InfoWindow({content: buildInfoWindowInput(lat, lng)});
+
+  google.maps.event.addListener(infoWindow, 'closeclick', () => {
+    editMarker.setMap(null);
+  });
+
+  infoWindow.open(map, editMarker);
+}
+
+function buildInfoWindowInput(lat, lng) {
+  const textBox = document.createElement('textarea');
+  const button = document.createElement('button');
+  button.appendChild(document.createTextNode('Submit'));
+
+  button.onclick = () => {
+    postMarker(lat, lng, textBox.value);
+    createMarkerForDisplay(lat, lng, textBox.value);
+    editMarker.setMap(null);
+  };
+
+  const containerDiv = document.createElement('div');
+  containerDiv.appendChild(textBox);
+  containerDiv.appendChild(document.createElement('br'));
+  containerDiv.appendChild(button);
+
+  return containerDiv;
 }
 
 function toggleBounce(m) { 

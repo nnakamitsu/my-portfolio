@@ -69,6 +69,7 @@ public class DataServlet extends HttpServlet {
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   
 
+  /** Responds with a JSON array containing comments data. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     if (!(request.getParameter("sort") == null)) {

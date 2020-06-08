@@ -257,12 +257,6 @@
         <i class="material-icons font-size:14px">add</i><b>TensorFlow</b>
         <br>
       </div>
-          <!-- <ul>
-            <li>Python</li>
-            <li>Java</li>
-            <li>HTML/CSS</li>
-            <li>JavaScript</li>
-          </ul> -->
     </div>
 
 
@@ -303,8 +297,11 @@
         <div id="map" class="col s4">
         </div>
       </div>
-      <!-- <div id="map"></div> -->
-      <br/><br/>
+      <div class="row">
+        <h6><b>Note:</b> You can also recommend me places by clicking anywhere on the map! The purple paddles are other people's recommendations.</h6>
+      </div>
+    
+      <br/>
       <div class="divider"></div>
       <h4>Comments</h4>
 
@@ -331,11 +328,9 @@
               <option value="10">10</option>
               <option value="20">20</option>
             </select>
-            <!-- <input type="submit"/ padding=10px> -->
           </form>
         </div>
         <div class="input-field col s3 select-wrapper" style="width:25%">
-          <!-- <form action="/data" method="POST">  -->
           <form>
           <label>Sort:</label>
             <select onchange="sortComments()" id="sort" name="sort" required style="width:15%">
@@ -345,14 +340,11 @@
               <option value="alphabetical">By name alphabetical (A-Z)</option>
               <option value="reverse-alphabetical">By name alphabetical (Z-A)</option>
             </select>
-            <!-- <input type="submit"/ padding=10px> -->
           </form>
         </div>
       </div>
       <br/>
-      
-      <!-- <button onclick="loadTasks()">Reload Comments</button> -->
-      <!-- <div id="data-container"></div> -->
+
       <ul class="collection" id="task-list"></ul>
       <br>
 
