@@ -46,27 +46,43 @@ async function getData() {
   document.getElementById('data-container').innerText = data;
 }
 
-function loadTasks() {
+function loadEntries() {
   const commentCount = document.getElementById('maxcomments');
   console.log(commentCount.value)
-  fetch('/data').then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('task-list');
-    tasks.forEach((task) => {
-      console.log(task.title)
-      taskListElement.appendChild(createTaskElement(task));
+  fetch('/data').then(response => response.json()).then((entries) => {
+    const entryListElement = document.getElementById('entry-list');
+    entries.forEach((entry) => {
+      console.log(entry.title)
+      entryListElement.appendChild(createEntryElement(entry));
     })
+  });
+  fetch('/logins').then(response => response.text()).then((txt) => {
+     var form = document.getElementById("addcomm");
+    if (txt.includes("Please")) {
+      form.style.display = "none";
+      document.getElementById("error").innerHTML = "<i>" + txt + "</i>";
+    } else{
+      document.getElementById("error").innerHTML = "<i>" + txt + "</i>";
+    }});
+}
+
+function login() {
+  fetch('/logins').then((response) => {
+     const loginElement = document.getElementById('loginel');
+     console.log(response)
+     loginElement.innerHTML = response;
   });
 }
 
 function getMessages() {
   const commentCount = document.getElementById('maxcomments');
   console.log(commentCount.name)
-  document.getElementById('task-list').innerHTML = "";
-  fetch('/data?maxcomments=' + commentCount.value).then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('task-list');
-    tasks.forEach((task) => {
-      console.log(task.title)
-      taskListElement.appendChild(createTaskElement(task));
+  document.getElementById('entry-list').innerHTML = "";
+  fetch('/data?maxcomments=' + commentCount.value).then(response => response.json()).then((entries) => {
+    const entryListElement = document.getElementById('entry-list');
+    entries.forEach((entry) => {
+      console.log(entry.title)
+      entryListElement.appendChild(createEntryElement(entry));
     })
   });
 }
@@ -74,12 +90,12 @@ function getMessages() {
 function sortComments() {
   const sort = document.getElementById('sort');
   console.log(sort.value)
-  document.getElementById('task-list').innerHTML = "";
-  fetch('/data?sort=' + sort.value).then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('task-list');
-    tasks.forEach((task) => {
-      console.log(task.title)
-      taskListElement.appendChild(createTaskElement(task));
+  document.getElementById('entry-list').innerHTML = "";
+  fetch('/data?sort=' + sort.value).then(response => response.json()).then((entries) => {
+    const entryListElement = document.getElementById('entry-list');
+    entries.forEach((entry) => {
+      console.log(entry.title)
+      entryListElement.appendChild(createEntryElement(entry));
     })
   });
 }
@@ -88,23 +104,31 @@ function updateCount() {
   location.replace("index.html")
 }
 
-function createTaskElement(task) {
-  const taskElement = document.createElement('li');
-  taskElement.className = 'task collection-item';
+function createEntryElement(entry) {
+  const entryElement = document.createElement('li');
+  entryElement.className = 'entry collection-item';
 
   const titleElement = document.createElement('span');
-  titleElement.innerText = task.title;
+  titleElement.innerText = entry.title;
 
   const nameElement = document.createElement('span');
-  if (task.name === undefined || task.name === "") {
+  if (entry.name === undefined || entry.name === "") {
     nameElement.innerHTML = "-- Anonymous".italics().bold();
   } else {
-    nameElement.innerHTML = ("--" + task.name).italics().bold();
+    nameElement.innerHTML = ("--" + entry.name).italics().bold();
   }
-  nameElement.style.margin = "15px"
+  nameElement.style.marginLeft = "15px"
+
+  const emailElement = document.createElement('span');
+  if (entry.displayemail === "on") {
+    emailElement.innerHTML = "(" + entry.email + ")";
+  } else {
+    emailElement.innerHTML = "(Hidden email)"
+  }
+  emailElement.style.margin = "2px";
 
   const timeElement = document.createElement('span');
-  var date = new Date(task.timestamp);
+  var date = new Date(entry.timestamp);
   timeElement.innerText = date.toString().slice(0,24);
   timeElement.style.float = "right";
   timeElement.style.marginRight = "10px";
@@ -113,23 +137,24 @@ function createTaskElement(task) {
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.style.float = "right";
   deleteButtonElement.addEventListener('click', () => {
-    deleteTask(task);
+    deleteEntry(entry);
 
-    // Remove the task from the DOM.
-    taskElement.remove();
+    // Remove the entry from the DOM.
+    entryElement.remove();
   });
 
 
-  taskElement.appendChild(titleElement);
-  taskElement.appendChild(nameElement);
-  taskElement.appendChild(deleteButtonElement);
-  taskElement.appendChild(timeElement);
-  return taskElement;
+  entryElement.appendChild(titleElement);
+  entryElement.appendChild(nameElement);
+  entryElement.appendChild(emailElement);
+  entryElement.appendChild(deleteButtonElement);
+  entryElement.appendChild(timeElement);
+  return entryElement;
 }
 
-function deleteTask(task) {
+function deleteEntry(entry) {
   const params = new URLSearchParams();
-  params.append('id', task.id);
+  params.append('id', entry.id);
   fetch('/delete', {method: 'POST', body: params});
 }
 
@@ -304,6 +329,6 @@ function editMarkerText(message) {
 }
 
 function loadPage() {
-  loadTasks();
+  loadEntries();
   createMap();
 }

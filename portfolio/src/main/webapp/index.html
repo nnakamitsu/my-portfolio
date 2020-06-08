@@ -300,21 +300,32 @@
       <div class="row">
         <h6><b>Note:</b> You can also recommend me places by clicking anywhere on the map! The purple paddles are other people's recommendations.</h6>
       </div>
-    
+      <p id="loginel"> </p>
       <br/>
       <div class="divider"></div>
       <h4>Comments</h4>
+      <h6 id="error"></h6>
 
-      <form action="/data" method="POST">
 
-        <h6>Add a comment below! </h6>
+      <form id="addcomm" action="/data" method="POST">
         
         <textarea name="title" placeholder="Insert Comment"></textarea>
         <br/><br/>
         
         <textarea name="name" placeholder="Name (optional)" style="height:25px; width:20%"></textarea>
+
+        <p>
+          <label>
+            <input id="displayemail" name="displayemail" type="checkbox" class="filled-in" checked="checked" />
+            <span>Display email next to comment</span>
+          </label>
+        </p>
+        
+        <!-- <input type="checkbox" id="displayemail" name="displayemail" value="true" checked>
+        <label for="displayemail"> Display email next to comment </label> -->
         
         <input class="button button_blue hoverable z-depth-1" style="margin-left:10px" type="submit"/>
+
       </form>
       <br/>
       <div class="row">
@@ -345,7 +356,7 @@
       </div>
       <br/>
 
-      <ul class="collection" id="task-list"></ul>
+      <ul class="collection" id="entry-list"></ul>
       <br>
 
       <div class="right-align" margin=20px>
