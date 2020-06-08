@@ -34,7 +34,8 @@ import java.util.*;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  public class Task {
+  /** Data holder for each individual comment */
+  public class Entry {
     public long id;
     public String title;
     public long timestamp;
@@ -43,7 +44,7 @@ public class DataServlet extends HttpServlet {
     public String email;
     public String displayemail;
 
-    public Task(long id, String title, long timestamp, String name, String email, String displayemail) {
+    public Entry(long id, String title, long timestamp, String name, String email, String displayemail) {
       this.id = id;
       this.title = title;
       this.timestamp = timestamp;
@@ -89,13 +90,13 @@ public class DataServlet extends HttpServlet {
     }
     Query query;
     if (sort.equals("newest")) {
-      query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+      query = new Query("Entry").addSort("timestamp", SortDirection.DESCENDING);
     } else if (sort.equals("oldest")) {
-      query = new Query("Task").addSort("timestamp", SortDirection.ASCENDING);
+      query = new Query("Entry").addSort("timestamp", SortDirection.ASCENDING);
     } else if (sort.equals("alphabetical")) {
-      query = new Query("Task").addSort("name", SortDirection.ASCENDING);
+      query = new Query("Entry").addSort("name", SortDirection.ASCENDING);
     } else {
-      query = new Query("Task").addSort("name", SortDirection.DESCENDING);
+      query = new Query("Entry").addSort("name", SortDirection.DESCENDING);
     }
     PreparedQuery results = datastore.prepare(query);
     int count = 0;
@@ -104,7 +105,7 @@ public class DataServlet extends HttpServlet {
       maxcount = Integer.parseInt(request.getParameter("maxcomments"));
     }
 
-    List<Task> comments = new ArrayList<>();
+    List<Entry> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       long id = entity.getKey().getId();
       String title = (String) entity.getProperty("title");
@@ -112,8 +113,8 @@ public class DataServlet extends HttpServlet {
       String name = (String) entity.getProperty("name");
       String email = (String) entity.getProperty("email");
       String displayemail = (String) entity.getProperty("displayemail");
-      Task task = new Task(id, title, timestamp, name, email, displayemail);
-      comments.add(task);
+      Entry entry = new Entry(id, title, timestamp, name, email, displayemail);
+      comments.add(entry);
 
       count++;
       if (count >= maxcount) {
@@ -151,13 +152,13 @@ public class DataServlet extends HttpServlet {
       displayemail = "on";
     }
 
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("title", title);
-    taskEntity.setProperty("name", name);
-    taskEntity.setProperty("timestamp", timestamp);
-    taskEntity.setProperty("email", email);
-    taskEntity.setProperty("displayemail", displayemail);
-    datastore.put(taskEntity);
+    Entity entryEntity = new Entity("Entry");
+    entryEntity.setProperty("title", title);
+    entryEntity.setProperty("name", name);
+    entryEntity.setProperty("timestamp", timestamp);
+    entryEntity.setProperty("email", email);
+    entryEntity.setProperty("displayemail", displayemail);
+    datastore.put(entryEntity);
 
     response.sendRedirect("/index.html");
     
