@@ -117,7 +117,11 @@ function createTaskElement(task) {
   } else {
     nameElement.innerHTML = ("--" + task.name).italics().bold();
   }
-  nameElement.style.margin = "15px"
+  nameElement.style.marginLeft = "15px"
+
+  const emailElement = document.createElement('span');
+  emailElement.innerHTML = "(" + task.email + ")";
+  emailElement.style.margin = "2px";
 
   const timeElement = document.createElement('span');
   var date = new Date(task.timestamp);
@@ -138,6 +142,7 @@ function createTaskElement(task) {
 
   taskElement.appendChild(titleElement);
   taskElement.appendChild(nameElement);
+  taskElement.appendChild(emailElement);
   taskElement.appendChild(deleteButtonElement);
   taskElement.appendChild(timeElement);
   return taskElement;
