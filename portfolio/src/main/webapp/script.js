@@ -56,6 +56,20 @@ function loadTasks() {
       taskListElement.appendChild(createTaskElement(task));
     })
   });
+  fetch('/logins').then(response => response.text()).then((txt) => {
+     var form = document.getElementById("addcomm");
+    if (txt.includes("stranger")) {
+      form.style.display = "none";
+      document.getElementById("error").innerHTML = "Please log in to add a comment."
+    }});
+}
+
+function login() {
+  fetch('/login').then((response) => {
+     const loginElement = document.getElementById('loginel');
+     console.log(response)
+     loginElement.innerHTML = response;
+  });
 }
 
 function getMessages() {

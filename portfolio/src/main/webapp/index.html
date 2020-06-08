@@ -300,12 +300,14 @@
       <div class="row">
         <h6><b>Note:</b> You can also recommend me places by clicking anywhere on the map! The purple paddles are other people's recommendations.</h6>
       </div>
-    
+      <p id="loginel"> </p>
       <br/>
       <div class="divider"></div>
       <h4>Comments</h4>
+      <p id="error"></p>
+      <button name="logbutton" class="button button_blue hoverable valign-container z-depth-1" onclick="login()"><p class="valign"> Login </p> </button>
 
-      <form action="/data" method="POST">
+      <form id="addcomm" action="/data" method="POST">
 
         <h6>Add a comment below! </h6>
         
@@ -315,6 +317,7 @@
         <textarea name="name" placeholder="Name (optional)" style="height:25px; width:20%"></textarea>
         
         <input class="button button_blue hoverable z-depth-1" style="margin-left:10px" type="submit"/>
+
       </form>
       <br/>
       <div class="row">

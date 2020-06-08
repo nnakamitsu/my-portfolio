@@ -18,10 +18,13 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 // import com.google.sps.data.Task;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
@@ -37,13 +40,15 @@ public class DataServlet extends HttpServlet {
     public long timestamp;
     public String name;
     public int likes;
+    public String email;
 
-    public Task(long id, String title, long timestamp, String name) {
+    public Task(long id, String title, long timestamp, String name, String email) {
       this.id = id;
       this.title = title;
       this.timestamp = timestamp;
       this.name = name;
       this.likes = 0;
+      this.email = email;
     }
 
     public long getId() {
@@ -61,6 +66,10 @@ public class DataServlet extends HttpServlet {
     public String getName() {
       return name;
     }
+
+    public String getEmail() {
+      return email;
+    }
   }
   public int maxcount = 3;
 
@@ -72,6 +81,8 @@ public class DataServlet extends HttpServlet {
   /** Responds with a JSON array containing comments data. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+
     if (!(request.getParameter("sort") == null)) {
       sort = request.getParameter("sort");
     }
@@ -98,9 +109,10 @@ public class DataServlet extends HttpServlet {
       String title = (String) entity.getProperty("title");
       long timestamp = (long) entity.getProperty("timestamp");
       String name = (String) entity.getProperty("name");
-
-      Task task = new Task(id, title, timestamp, name);
+      String email = (String) entity.getProperty("email");
+      Task task = new Task(id, title, timestamp, name, email);
       comments.add(task);
+
       count++;
       if (count >= maxcount) {
         break;
@@ -122,21 +134,31 @@ public class DataServlet extends HttpServlet {
   // A simple HTTP handler to extract text input from submitted web form and respond that context back to the user.
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    String title = request.getParameter("title");
-    String name = request.getParameter("name");
-    long timestamp = System.currentTimeMillis();
+    UserService userService = UserServiceFactory.getUserService();
 
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("title", title);
-    taskEntity.setProperty("name", name);
-    taskEntity.setProperty("timestamp", timestamp);
-    datastore.put(taskEntity);
+    // Must be logged in to post comments
+    System.out.println("User:" + userService.isUserLoggedIn());
+    if (!userService.isUserLoggedIn()) {
+      response.getWriter().println("<p>You must be logged in to submit a comment!</p>");
+      return;
+    } else {
+      String title = request.getParameter("title");
+      String name = request.getParameter("name");
+      long timestamp = System.currentTimeMillis();
+      String email = userService.getCurrentUser().getEmail();
 
-    response.setContentType("text/html;");
-    response.getWriter().println(title);
-    response.getWriter().println(name);
-    response.sendRedirect("/index.html");
-    
+      Entity taskEntity = new Entity("Task");
+      taskEntity.setProperty("title", title);
+      taskEntity.setProperty("name", name);
+      taskEntity.setProperty("timestamp", timestamp);
+      taskEntity.setProperty("email", email);
+      datastore.put(taskEntity);
+
+      response.setContentType("text/html;");
+      response.getWriter().println(title);
+      response.getWriter().println(name);
+      response.sendRedirect("/index.html");
+    }
   }
 
   public void updateCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
