@@ -58,14 +58,16 @@ function loadTasks() {
   });
   fetch('/logins').then(response => response.text()).then((txt) => {
      var form = document.getElementById("addcomm");
-    if (txt.includes("stranger")) {
+    if (txt.includes("Please")) {
       form.style.display = "none";
-      document.getElementById("error").innerHTML = "Please log in to add a comment."
+      document.getElementById("error").innerHTML = "<i>" + txt + "</i>";
+    } else{
+      document.getElementById("error").innerHTML = "<i>" + txt + "</i>";
     }});
 }
 
 function login() {
-  fetch('/login').then((response) => {
+  fetch('/logins').then((response) => {
      const loginElement = document.getElementById('loginel');
      console.log(response)
      loginElement.innerHTML = response;

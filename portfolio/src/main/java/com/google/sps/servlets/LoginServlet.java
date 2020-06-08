@@ -36,13 +36,12 @@ public class LoginServlet extends HttpServlet {
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
       response.getWriter().println("<p>Hello " + userEmail + "!</p>");
-      response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+      response.getWriter().println("<p>Feel free to add a comment below or logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
     } else {
       String urlToRedirectToAfterUserLogsIn = "/";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-      response.getWriter().println("<p>Hello stranger.</p>");
-      response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      response.getWriter().println("<p>Please <a href=\"" + loginUrl + "\">login</a> to add a comment below.</p>");
     }
   }
 }
