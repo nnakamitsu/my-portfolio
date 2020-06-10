@@ -21,12 +21,15 @@ import java.util.HashSet;
 import java.util.ArrayList;
 
 public final class FindMeetingQuery {
+  /** Queries all possible meeting times given REQUEST restraints and other EVENTS*/
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-  //   throw new UnsupportedOperationException("TODO: Implement this method.");
+
     long duration = request.getDuration();
     Collection<String> attendees =  request.getAttendees();
     List<TimeRange> blockedtimes = new ArrayList<TimeRange>();
     List<TimeRange> result = new ArrayList<TimeRange>();
+
+    // Check which events actually conflict with needed attendees
     for(Event event : events) {
       boolean yes = false;
       for(String attendee : event.getAttendees()) {
@@ -39,8 +42,11 @@ public final class FindMeetingQuery {
         blockedtimes.add(event.getWhen());
       }
     }
+
     Collections.sort(blockedtimes, TimeRange.ORDER_BY_START);
     List<TimeRange> condensedblockedtimes = new ArrayList<TimeRange>();
+
+    // Condense block times so that any overlaps and conflicts are combined together
     for(int i = 0; i < blockedtimes.size() - 1; i++) {
       TimeRange first = blockedtimes.get(i);
       TimeRange next = blockedtimes.get(i+1);
@@ -57,6 +63,8 @@ public final class FindMeetingQuery {
     if (blockedtimes.size() > 0) {
       condensedblockedtimes.add(blockedtimes.get(blockedtimes.size() - 1));
     }
+
+    // Create RESULT (available times), an ArrayList that is the opposite of blocked times
     for(int i = 0; i < condensedblockedtimes.size(); i++) {
       if (i == 0) {
         result.add(i, TimeRange.fromStartEnd(TimeRange.START_OF_DAY, condensedblockedtimes.get(i).start(), false));
@@ -70,7 +78,7 @@ public final class FindMeetingQuery {
       result.add(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true));
     }
 
-    // Ensure that all results are large enough durations.
+    // Ensure that all TimeRanges in RESULT are large enough durations required for meeting.
     for(int i = 0; i < result.size(); i++) {
       if (result.get(i).duration() < duration) {
         result.remove(i);
