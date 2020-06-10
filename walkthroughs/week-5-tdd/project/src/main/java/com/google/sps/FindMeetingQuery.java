@@ -16,6 +16,7 @@ package com.google.sps;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.HashSet;
 import java.util.ArrayList;
 
@@ -24,8 +25,8 @@ public final class FindMeetingQuery {
   //   throw new UnsupportedOperationException("TODO: Implement this method.");
     long duration = request.getDuration();
     Collection<String> attendees =  request.getAttendees();
-    Collection<TimeRange> blockedtimes = new ArrayList<TimeRange>();
-    Collection<TimeRange> result = new ArrayList<TimeRange>();
+    List<TimeRange> blockedtimes = new ArrayList<TimeRange>();
+    List<TimeRange> result = new ArrayList<TimeRange>();
     for(Event event : events) {
       boolean yes = false;
       for(String attendee : event.getAttendees()) {
@@ -39,7 +40,7 @@ public final class FindMeetingQuery {
       }
     }
     Collections.sort(blockedtimes, TimeRange.ORDER_BY_START);
-    Collection<TimeRange> condensedblockedtimes = new ArrayList<TimeRange>();
+    List<TimeRange> condensedblockedtimes = new ArrayList<TimeRange>();
     for(int i = 0; i < blockedtimes.size() - 1; i++) {
       TimeRange first = blockedtimes.get(i);
       TimeRange next = blockedtimes.get(i+1);
@@ -47,21 +48,34 @@ public final class FindMeetingQuery {
         blockedtimes.remove(next);
         i--;
       } else if (first.overlaps(next)) {
-        blockedtimes.add(i, new TimeRange(first.start(), next.end()));
+        blockedtimes.add(i, TimeRange.fromStartEnd(first.start(), next.end(), false));
         i--;
       } else {
         condensedblockedtimes.add(i, blockedtimes.get(i));
       }
     }
+    if (blockedtimes.size() > 0) {
+      condensedblockedtimes.add(blockedtimes.get(blockedtimes.size() - 1));
+    }
     for(int i = 0; i < condensedblockedtimes.size(); i++) {
       if (i == 0) {
-        result.add(i, new TimeRange(TimeRange.START_OF_DAY, condensedblockedtimes.get(i).start()));
+        result.add(i, TimeRange.fromStartEnd(TimeRange.START_OF_DAY, condensedblockedtimes.get(i).start(), false));
       } else {
-        result.add(i, new TimeRange(condensedblockedtimes.get(i-1).end(), condensedblockedtimes.get(i).start()));
+        result.add(i, TimeRange.fromStartEnd(condensedblockedtimes.get(i-1).end(), condensedblockedtimes.get(i).start(), false));
       }
     }
     if (condensedblockedtimes.size() > 0) {
-      result.add(newTimeRange(condensedblockedtimes.get(condensedblockedtimes.size()-1), TimeRange.END_OF_DAY));
+      result.add(TimeRange.fromStartEnd(condensedblockedtimes.get(condensedblockedtimes.size()-1).end(), TimeRange.END_OF_DAY, true));
+    } else {
+      result.add(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true));
+    }
+
+    // Ensure that all results are large enough durations.
+    for(int i = 0; i < result.size(); i++) {
+      if (result.get(i).duration() < duration) {
+        result.remove(i);
+        i--;
+      }
     }
     return result;
 
