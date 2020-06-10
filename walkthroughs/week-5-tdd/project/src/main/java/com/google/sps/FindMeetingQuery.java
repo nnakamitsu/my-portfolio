@@ -40,7 +40,7 @@ public final class FindMeetingQuery {
       }
     }
     if (finaltimes.isEmpty()) {
-      return mandatory;
+      return request.getAttendees().isEmpty() ? finaltimes : mandatory;
     } else {
       return finaltimes;
     }
@@ -115,9 +115,6 @@ public final class FindMeetingQuery {
         i--;
       }
     }
-
-    // Take into account optional employees
-    // List<String> optional= request.getOptionalAttendees();
 
     return result;
   }
