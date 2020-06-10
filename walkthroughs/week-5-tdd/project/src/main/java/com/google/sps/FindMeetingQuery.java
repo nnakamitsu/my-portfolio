@@ -30,48 +30,23 @@ public final class FindMeetingQuery {
     boolean open = false;
     long opentime;
     int i = 0; int j = 0;
-    // while(i != mandatory.size() && j != optional.size()) {
-    //   if (!open) {
-    //     if (mandatory.get(i).start() < mandatory.get(j).start()) {
-    //       if (mandatory.get(i).end < mandatory.get(j).start()) {
-    //         i++;
-    //       } else {
-    //         opentime = mandatory.get(j).start();
-    //         open = true;
-    //         if (mandatory.get(i).end() < mandatory.get(j).end()) {
-    //           if (mandatory.get(i).end() <)
-    //         }
-    //       }
-
-    //     }
-    //   }
-    // }
-    // for (int i = 0; i < mandatory.size(); i++) {
-    //   if (mandatory.get(i).start() < optional.get(j).start()) {
-        
-    //   }
-    // }
-    // for (TimeRange mand : mandatory) {
-    //   boolean containsopt = false;
-    //   for (TimeRange time : optional) {
-    //     if (mand.contains(time)) {
-    //       containsopt = true;
-    //       finaltimes.add(time);
-    //     }
-    //   }
-    //   // if (containsopt) {
-    //   //   finaltimes.add(mand);
-    //   //}
-    // }
-    // if (finaltimes.isEmpty()) {
-    //   return mandatory;
-    // } else {
-    //   return finaltimes;
-    // }
-    return mandatory;
+    for (TimeRange mand : mandatory) {
+      boolean containsopt = false;
+      for (TimeRange time : optional) {
+        TimeRange result = findOverlap(mand, time);
+        if (result.duration() >= duration) {
+          finaltimes.add(result);
+        }
+      }
+    }
+    if (finaltimes.isEmpty()) {
+      return mandatory;
+    } else {
+      return finaltimes;
+    }
   }
 
-
+  /** Helper function that allows to query for optional or mandatory attendees */
   public List<TimeRange> queryHelper(Collection<Event> events, MeetingRequest request, boolean optional){
 
     long duration = request.getDuration();
@@ -145,5 +120,23 @@ public final class FindMeetingQuery {
     // List<String> optional= request.getOptionalAttendees();
 
     return result;
+  }
+
+  /** Finds the largest overlap window between two time ranges */
+  public TimeRange findOverlap(TimeRange t1, TimeRange t2) {
+    int smaller = (t1.end() < t2.end()) ? t1.end() : t2.end();
+    if (t1.start() < t2.start()) {
+      if (t1.end() < t2.start()) {
+        return TimeRange.fromStartDuration(0, 0);
+      } else {
+        return TimeRange.fromStartEnd(t2.start(), smaller, false);
+      }
+    } else {
+      if (t2.end() < t1.start()) {
+        return TimeRange.fromStartDuration(0, 0);
+      } else {
+        return TimeRange.fromStartEnd(t1.start(), smaller, false);
+      }
+    }
   }
 }
