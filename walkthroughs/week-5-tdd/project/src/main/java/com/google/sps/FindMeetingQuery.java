@@ -23,9 +23,64 @@ import java.util.ArrayList;
 public final class FindMeetingQuery {
   /** Queries all possible meeting times given REQUEST restraints and other EVENTS*/
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    List<TimeRange> mandatory = queryHelper(events, request, false);
+    List<TimeRange> optional = queryHelper(events, request, true);
+    List<TimeRange> finaltimes = new ArrayList<TimeRange>();
+    long duration = request.getDuration();
+    boolean open = false;
+    long opentime;
+    int i = 0; int j = 0;
+    // while(i != mandatory.size() && j != optional.size()) {
+    //   if (!open) {
+    //     if (mandatory.get(i).start() < mandatory.get(j).start()) {
+    //       if (mandatory.get(i).end < mandatory.get(j).start()) {
+    //         i++;
+    //       } else {
+    //         opentime = mandatory.get(j).start();
+    //         open = true;
+    //         if (mandatory.get(i).end() < mandatory.get(j).end()) {
+    //           if (mandatory.get(i).end() <)
+    //         }
+    //       }
+
+    //     }
+    //   }
+    // }
+    // for (int i = 0; i < mandatory.size(); i++) {
+    //   if (mandatory.get(i).start() < optional.get(j).start()) {
+        
+    //   }
+    // }
+    // for (TimeRange mand : mandatory) {
+    //   boolean containsopt = false;
+    //   for (TimeRange time : optional) {
+    //     if (mand.contains(time)) {
+    //       containsopt = true;
+    //       finaltimes.add(time);
+    //     }
+    //   }
+    //   // if (containsopt) {
+    //   //   finaltimes.add(mand);
+    //   //}
+    // }
+    // if (finaltimes.isEmpty()) {
+    //   return mandatory;
+    // } else {
+    //   return finaltimes;
+    // }
+    return mandatory;
+  }
+
+
+  public List<TimeRange> queryHelper(Collection<Event> events, MeetingRequest request, boolean optional){
 
     long duration = request.getDuration();
-    Collection<String> attendees =  request.getAttendees();
+    Collection<String> attendees;
+    if (optional){
+      attendees = request.getOptionalAttendees();
+    } else{
+      attendees =  request.getAttendees();
+    }
     List<TimeRange> blockedtimes = new ArrayList<TimeRange>();
     List<TimeRange> result = new ArrayList<TimeRange>();
 
@@ -85,7 +140,10 @@ public final class FindMeetingQuery {
         i--;
       }
     }
-    return result;
 
+    // Take into account optional employees
+    // List<String> optional= request.getOptionalAttendees();
+
+    return result;
   }
 }
