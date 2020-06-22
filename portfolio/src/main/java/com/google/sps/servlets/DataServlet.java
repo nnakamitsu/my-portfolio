@@ -138,7 +138,7 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     UserService userService = UserServiceFactory.getUserService();
-
+    
     // Must be logged in to post comments
     String title = request.getParameter("title");
     String name = request.getParameter("name");
